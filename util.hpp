@@ -105,6 +105,13 @@ namespace ul
             }
             return true;
         }
+
+        //获取文件路径
+        std::string Path()
+        {
+            return _filepath;
+        }
+        
     private:
         std::string _filepath;//文件路径
     };
@@ -112,7 +119,7 @@ namespace ul
     class JsonUtil
     {
     public:
-        // 反序列化
+        // 反序列化，将str反序列化到root中
         static bool Deserialize(Json::Value &root, const std::string &str)
         {
             Json::CharReaderBuilder crb;
