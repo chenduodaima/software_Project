@@ -171,6 +171,11 @@ namespace my
             return true;
         }
 
+        bool GetTopK(int k, Json::Value *result)
+        {
+            return SelectLike("*", result);
+        }
+
         bool Update(Json::Value &value, Json::Value &condition)
         {
 #define UPDATE_VIDEO_SQL "update video set "

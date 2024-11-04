@@ -465,7 +465,7 @@ section {margin:10px 0; display:block;}
 	padding-right:15px;
 }
 
-.3-right-posts .thumbr {
+.three-right-posts .thumbr {
 	width:50%;
 }
 
@@ -1010,7 +1010,7 @@ blockquote footer {color:#fff;}
 
 /* SHARE INPUT */
 .share-input {display:inline-block;width:100%;}
-.share-input i {position:absolute:}
+.share-input i {position:absolute;}
 .sharelinkicon {
     float: right;
     margin-right: 6px;
