@@ -10,6 +10,7 @@ int main(int argc, char *argv[])
         Usage(argv[0]);
         exit(Fatal);
     }
+    conf.SetLogStyle(ClassFile);
     uint16_t port = std::atoi(argv[1]);
     std::unique_ptr<aod::HttpServer> http_server(new aod::HttpServer(port));
     http_server->RunModule();

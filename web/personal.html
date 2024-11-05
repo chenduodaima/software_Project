@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="OrcasThemes">
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+    <title>个人中心</title>
+    <!-- Bootstrap core CSS -->
+    <link href="css/bootstrap.css" rel="stylesheet">
+    <!-- Custom styles for this template -->
+    <link rel="stylesheet" href="css/screen.css">
+    <link rel="stylesheet" href="css/animation.css">
+    <link rel="stylesheet" href="css/font-awesome.css">
+    <link rel="stylesheet" href="css/personal.css">
+</head>
+
+<body>
+    <div id="personal">
+        <div class="personal-container">
+            <!-- 左侧导航栏 -->
+            <div class="left-nav">
+                <div class="user-info">
+                    <img src="img/test.jpg" class="avatar-large" alt="用户头像">
+                    <h3 class="username">辰嘉日</h3>
+                </div>
+                <ul class="nav-list">
+                    <li class="nav-item active" data-page="profile">
+                        <i class="fa fa-user"></i>
+                        <span>个人资料</span>
+                    </li>
+                    <li class="nav-item" data-page="security">
+                        <i class="fa fa-lock"></i>
+                        <span>账号安全</span>
+                    </li>
+                    <li class="nav-item" data-page="logout">
+                        <i class="fa fa-sign-out"></i>
+                        <span>退出登录</span>
+                    </li>
+                </ul>
+            </div>
+
+            <!-- 右侧内容区域 -->
+            <div class="right-content">
+                <!-- 个人资料页面 -->
+                <div class="content-page active" id="profile-page">
+                    <h2>个人资料</h2>
+                    <div class="form-container">
+                        <!-- 头像上传部分 -->
+                        <div class="form-group">
+                            <div class="avatar-upload">
+                                <img src="img/test.jpg" alt="当前头像">
+                                <button class="btn btn-primary">更换头像</button>
+                            </div>
+                        </div>
+                        
+                        <!-- 修改用户名部分 -->
+                        <div class="form-group">
+                            <label>用户名</label>
+                            <div class="edit-group">
+                                <input type="text" class="form-control" value="辰嘉日" readonly>
+                                <button class="edit-btn">
+                                    <i class="fa fa-pencil"></i>
+                                    修改
+                                </button>
+                            </div>
+                        </div>
+                        
+                        <!-- 修改个性签名部分 -->
+                        <div class="form-group">
+                            <label>个性签名</label>
+                            <div class="edit-group">
+                                <textarea class="form-control" readonly>这个人很懒，什么都没写~</textarea>
+                                <button class="edit-btn">
+                                    <i class="fa fa-pencil"></i>
+                                    修改
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 账号安全页面 -->
+                <div class="content-page" id="security-page">
+                    <h2>账号安全</h2>
+                    <div class="form-container">
+                        <div class="form-group">
+                            <label>原密码</label>
+                            <input type="password" class="form-control">
+                        </div>
+                        <div class="form-group">
+                            <label>新密码</label>
+                            <input type="password" class="form-control">
+                        </div>
+                        <div class="form-group">
+                            <label>确认新密码</label>
+                            <input type="password" class="form-control">
+                        </div>
+                        <button class="btn btn-success save-btn">修改密码</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- JS -->
+    <script src="js/jquery-1.12.1.min.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+    <script src="js/personal.js"></script>
+</body>
+</html>

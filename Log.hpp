@@ -169,6 +169,12 @@ public:
     {
         lg.Enable(Screen);
     }
+
+    void SetLogStyle(int style)
+    {
+        lg.Enable(style);
+    }
+
     ~Conf()
     {
     }

@@ -780,6 +780,7 @@ ul.footer-tags li:hover {background: var(--secondary-color); text-decoration:non
 .social-youtube {background:#df1e1a;}
 .social-vimeo {background:#17aee1;}
 .social-rss {background:#fd7120;}
+.social-gitee {background: #fc2e15;}
 ul.social {margin: 30px 0;display:inline-block;padding-left:0;}
 ul.social li {
     padding: 0 2px 0 2px;

@@ -1,0 +1,98 @@
+/* 头像容器 */
+.avatar-container {
+    position: absolute;
+    right: 180px;    
+    top: 12px;
+    display: flex;
+    align-items: center;
+}
+
+/* 圆形头像 */
+.avatar {
+    width: 55px;    
+    height: 55px;   
+    border-radius: 50%;
+    border: 2px solid #fff;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+    z-index: 2;
+}
+
+.avatar:hover {
+    transform: scale(1.1);
+    box-shadow: 0 4px 8px rgba(0,0,0,0.3);
+}
+
+/* 信息框 */
+.user-info-box {
+    height: 55px;
+    background: rgba(255, 255, 255, 0.9);
+    margin-left: -20px;
+    padding: 0 20px 0 45px;  /* 左内边距从30px增加到45px */
+    border-radius: 0 28px 28px 0;
+    display: flex;
+    align-items: center;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    position: absolute;
+    left: 35px;
+    
+    opacity: 0;
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: all 0.3s ease;
+    pointer-events: none;
+}
+
+/* 悬停时显示信息框 */
+.avatar-container:hover .user-info-box {
+    opacity: 1;
+    transform: scaleX(1);
+}
+
+.user-info-text {
+    color: #333;
+    font-size: 16px;
+    font-weight: 500;
+    white-space: nowrap;
+    margin-left: 10px;  /* 额外添加左边距 */
+}
+
+.avatar {
+    width: 55px;    
+    height: 55px;   
+    border-radius: 50%;
+    border: 2px solid #fff;
+    cursor: pointer;  /* 添加鼠标手型 */
+    transition: all 0.3s ease;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+    z-index: 2;
+}
+
+.footer-link {
+    text-decoration: underline;
+    color: #007bff;
+    transition: color 0.3s;
+}
+
+.footer-link:hover {
+    color: #0056b3;
+}
+
+.nav-active {
+    color: #ffd700 !important;  /* 金色文字 */
+    text-shadow: 0 0 1px rgba(255, 215, 0, 0.3);  /* 轻微发光效果 */
+    background-color: transparent !important;  /* 确保背景透明 */
+    position: relative;
+}
+
+.nav-active::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 30px;
+    height: 2px;
+    background-color: #ffd700;  /* 金色下划线 */
+}
