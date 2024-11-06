@@ -84,7 +84,7 @@ namespace my
             : _table_name(table_name),
               _heat_video(8), _max_heat_video(6), _newest_video(6),
               _most_viewed_video(6), _most_commented_video(6), _most_liked_video(6),
-              _most_favorited_video(6), _top_rated_video(6),
+              _most_favorited_video(6), _top_rated_video(5),
               _running(true), _db_busy(false)
         {
             _mysql = MySQLInit();
@@ -820,7 +820,7 @@ namespace my
                     }
                     ReleaseDBLock();
                 }
-                std::this_thread::sleep_for(std::chrono::hours(1));
+                std::this_thread::sleep_for(std::chrono::seconds(5));
             }
         }
 
@@ -872,7 +872,7 @@ namespace my
                     }
                     ReleaseDBLock();
                 }
-                std::this_thread::sleep_for(std::chrono::hours(1));
+                std::this_thread::sleep_for(std::chrono::seconds(5));
             }
         }
 
@@ -924,7 +924,7 @@ namespace my
                     }
                     ReleaseDBLock();
                 }
-                std::this_thread::sleep_for(std::chrono::hours(1));
+                std::this_thread::sleep_for(std::chrono::seconds(5));
             }
         }
 
@@ -976,7 +976,7 @@ namespace my
                     }
                     ReleaseDBLock();
                 }
-                std::this_thread::sleep_for(std::chrono::hours(1));
+                std::this_thread::sleep_for(std::chrono::seconds(5));
             }
         }
 
@@ -1028,7 +1028,7 @@ namespace my
                     }
                     ReleaseDBLock();
                 }
-                std::this_thread::sleep_for(std::chrono::hours(1));
+                std::this_thread::sleep_for(std::chrono::seconds(5));
             }
         }
 
@@ -1080,7 +1080,7 @@ namespace my
                     }
                     ReleaseDBLock();
                 }
-                std::this_thread::sleep_for(std::chrono::hours(1));
+                std::this_thread::sleep_for(std::chrono::seconds(5));
             }
         }
 
@@ -1132,7 +1132,7 @@ namespace my
                     }
                     ReleaseDBLock();
                 }
-                std::this_thread::sleep_for(std::chrono::hours(1));
+                std::this_thread::sleep_for(std::chrono::seconds(5));
             }
         }
 
@@ -1143,7 +1143,7 @@ namespace my
                 LogMessage(Debug, "我抢到数据库锁了\n");
                 if (AcquireDBLock())
                 {
-                    std::string sql = "SELECT * FROM video ORDER BY rating DESC LIMIT 6;";
+                    std::string sql = "SELECT * FROM video ORDER BY rating DESC LIMIT 5;";
                     if (Execute(_mysql, sql))
                     {
                         LogMessage(Info, "更新最高评分视频\n");
@@ -1184,7 +1184,7 @@ namespace my
                     }
                     ReleaseDBLock();
                 }
-                std::this_thread::sleep_for(std::chrono::hours(1));
+                std::this_thread::sleep_for(std::chrono::seconds(5));
             }
         }
 
@@ -1202,7 +1202,7 @@ namespace my
         std::vector<VideoInfo> _most_commented_video; // 最多评论(6个)
         std::vector<VideoInfo> _most_liked_video;     // 最多点赞(6个)
         std::vector<VideoInfo> _most_favorited_video; // 最多收藏(6个)
-        std::vector<VideoInfo> _top_rated_video;      // 最高评分(6个)
+        std::vector<VideoInfo> _top_rated_video;      // 最高评分(5个)
 
         // 互斥锁
         pthread_mutex_t _heat_mutex;      // 热门视频

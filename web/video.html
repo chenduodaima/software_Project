@@ -82,23 +82,28 @@
                         <div class="video-info">
                            <!-- 16:9 aspect ratio -->
                            <div class="embed-responsive embed-responsive-16by9 video-embed-box">
-                              <iframe v-bind:src="video.video"  class="embed-responsive-item"></iframe>
+                              <iframe v-bind:src="video.video_path"  class="embed-responsive-item"></iframe>
                            </div>
                            <div class="metabox">
                               <span class="meta-i">
-                              <i class="fa fa-thumbs-up" aria-hidden="true"></i>20.895
+                                 <!-- 点赞数 -->
+                              <i class="fa fa-thumbs-up" aria-hidden="true"></i>{{video.likes}}
                               </span>
                               <span class="meta-i">
-                              <i class="fa fa-thumbs-down" aria-hidden="true"></i>3.981
+                                 <!-- 踩数 -->
+                              <i class="fa fa-thumbs-down" aria-hidden="true"></i>0
                               </span>
                               <span class="meta-i">
-                              <i class="fa fa-user"></i><a href="#" class="author" title="John Doe">John Doe</a>
+                                 <!-- 作者 -->
+                              <i class="fa fa-user"></i><a href="#" class="author" title="video.author">{{video.author}}</a>
                               </span>
                               <span class="meta-i">
-                              <i class="fa fa-clock-o"></i>March 16. 2017
+                                 <!-- 发布时间 -->
+                              <i class="fa fa-clock-o"></i>{{video.create_at}}
                               </span>
                               <span class="meta-i">
-                              <i class="fa fa-eye"></i>1,347,912 views
+                                 <!-- 观看数 -->
+                              <i class="fa fa-eye"></i>{{video.views}}
                               </span>
                               <div class="ratings">
                                  <i class="fa fa-star" aria-hidden="true"></i>
@@ -200,59 +205,6 @@
    <script src="js/jquery-1.12.1.min.js"></script>
    <script src="js/bootstrap.min.js"></script>
    <script src="js/lity.js"></script>
-   <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
-   <script>
-      $(".nav .dropdown").hover(function() {
-         $(this).find(".dropdown-toggle").dropdown("toggle");
-      });
-   </script>
-   <script>
-      let app = new Vue({
-        el: '#myapp',
-        data: {
-            author: "Zhangwenchao",
-            video: {}
-        },
-        methods: {
-            get_param: function(name) {
-               return decodeURIComponent((new RegExp('[?|&]' + name + '=' + '([^&;]+?)(&|#|;|$)').exec(location.href) || [, ""])[1].replace(/\+/g, '%20')) || null
-            },
-            get_video: function() {
-               var id = this.get_param("id");
-               $.ajax({
-                  url: "/video/" + id,
-                  type: "get",
-                  context: this,
-                  success : function(result, status, xhr){
-                     this.video = result;
-                  }
-               })
-            },
-            update_video: function() {
-               $.ajax({
-                  url: "/video/" + this.video.id,
-                  type: "put",
-                  data: JSON.stringify(this.video),
-                  context: this,
-                  success : function(result, status, xhr){
-                     alert("修改视频信息成功");
-                     window.location.reload();
-                  }
-               })
-            },
-            delete_video: function() {
-               $.ajax({
-                  url: "/video/" + this.video.id,
-                  type: "delete",
-                  context: this,
-                  success : function(result, status, xhr){
-                     alert("删除视频成功");
-                     window.location.href="/index.html";
-                  }
-               })
-            }
-        }
-    });
-    app.get_video();
-   </script>
+   <script src="https://cdn.jsdelivr.net/npm/vue@2.7.16"></script>
+   <script src="js/video.js"></script>
 </html>

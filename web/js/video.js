@@ -1,29 +1,53 @@
-//video.html实现通过参数id获取单个视频属性
+
+$(".nav .dropdown").hover(function () {
+    $(this).find(".dropdown-toggle").dropdown("toggle");
+});
+
 
 let app = new Vue({
-    el : "#app",
-    data : {
-        video : {},
-        id_Name : "id"
+    el: '#myapp',
+    data: {
+        author: "Zhangwenchao",
+        video: {}
     },
-    methods : {
-        getParam : function(name){
-            const urlParams = new RegExp("[\\?&]" + name + "=([^&#])*").exec(window.location.herf);
-            if (urlParams == null){
-                return null;
-            }
-            return decodeURIComponent(urlParams[1]);
+    methods: {
+        get_param: function (name) {
+            return decodeURIComponent((new RegExp('[?|&]' + name + '=' + '([^&;]+?)(&|#|;|$)').exec(location.href) || [, ""])[1].replace(/\+/g, '%20')) || null
         },
-        getVideo : function(){
-            const id = this.getParam(this.id_Name);
+        get_video: function () {
+            var id = this.get_param("id");
             $.ajax({
-                url : "/video/" + id,
-                type : "get",
-                context : this,
-                success : function(res, status, xhr){
-                    this.video = res;
-                },
-            });
+                url: "/video/" + id,
+                type: "get",
+                context: this,
+                success: function (result, status, xhr) {
+                    this.video = result;
+                }
+            })
+        },
+        update_video: function () {
+            $.ajax({
+                url: "/video/" + this.video.id,
+                type: "put",
+                data: JSON.stringify(this.video),
+                context: this,
+                success: function (result, status, xhr) {
+                    alert("修改视频信息成功");
+                    window.location.reload();
+                }
+            })
+        },
+        delete_video: function () {
+            $.ajax({
+                url: "/video/" + this.video.id,
+                type: "delete",
+                context: this,
+                success: function (result, status, xhr) {
+                    alert("删除视频成功");
+                    window.location.href = "/index.html";
+                }
+            })
         }
     }
 });
+app.get_video();

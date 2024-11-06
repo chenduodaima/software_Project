@@ -19,7 +19,7 @@ namespace aod
             httplib::MultipartFormData video_name_mul = req.get_file_value("name");     // 视频名称
             httplib::MultipartFormData video_author_mul = req.get_file_value("author"); // 视频作者
             httplib::MultipartFormData video_info_mul = req.get_file_value("info");     // 视频简介
-            httplib::MultipartFormData video_file_mul = req.get_file_value("file");     // 视频文件
+            httplib::MultipartFormData video_video_mul = req.get_file_value("video");     // 视频文件
             httplib::MultipartFormData image_mul = req.get_file_value("image");         // 视频封面
             //httplib::MultipartFormData user_id_mul = req.get_file_value("user_id");     // 用户id
             httplib::MultipartFormData duration_mul = req.get_file_value("duration");   // 视频时长
@@ -27,11 +27,11 @@ namespace aod
             std::string video_author = video_author_mul.content;
             std::string video_info = video_info_mul.content;
             // 拼接文件存放路径
-            std::string video_path = WEB_PATH + std::string(VIDEO_PATH) + video_name + video_file_mul.filename;
+            std::string video_path = WEB_PATH + std::string(VIDEO_PATH) + video_name + video_video_mul.filename;
             std::string image_path = WEB_PATH + std::string(IMG_PATH) + video_name + image_mul.filename;
             std::string duration = duration_mul.content;
 
-            if (ul::FileUtil(video_path).SetContent(video_file_mul.content) == false) // 如果保存视频文件失败，返回服务器错误
+            if (ul::FileUtil(video_path).SetContent(video_video_mul.content) == false) // 如果保存视频文件失败，返回服务器错误
             {
                 res.status = 500;
                 res.body = R"({"result":false, "reason":"视频文件上传失败"})"; // 添加正文数据
@@ -50,7 +50,7 @@ namespace aod
             value["name"] = video_name;
             value["author"] = video_author;
             value["info"] = video_info;
-            value["video_path"] = std::string(VIDEO_PATH) + video_name + video_file_mul.filename;
+            value["video_path"] = std::string(VIDEO_PATH) + video_name + video_video_mul.filename;
             value["img_path"] = std::string(IMG_PATH) + video_name + image_mul.filename;
             value["user_id"] = 1;
             value["duration"] = duration;

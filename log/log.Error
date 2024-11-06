@@ -1,2 +1,9 @@
 [Error][2024-11-5 23:42:52][22346][mysql.hpp][694] have no data!
 [Error][2024-11-5 23:54:40][23216][mysql.hpp][694] have no data!
+[Error][2024-11-6 12:12:46][7614][mysql.hpp][694] have no data!
+[Error][2024-11-6 12:40:41][7614][mysql.hpp][74] Execute SQL failed: Duplicate entry '/image/test25a5d0d5c9f3417b11d470c266cbfef5.jpg' for key 'img_path'
+[Error][2024-11-6 12:55:54][7614][mysql.hpp][694] have no data!
+[Error][2024-11-6 13:9:22][7614][mysql.hpp][694] have no data!
+[Error][2024-11-6 14:40:30][7614][mysql.hpp][694] have no data!
+[Error][2024-11-6 14:41:21][7614][mysql.hpp][694] have no data!
+[Error][2024-11-6 14:41:54][7614][mysql.hpp][694] have no data!

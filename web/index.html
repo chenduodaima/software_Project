@@ -138,7 +138,7 @@
 									<!-- POST L size -->
 									<div class="post post-medium">
 										<div class="thumbr">
-											<a class="afterglow post-thumb" :href="'video.html?id=' + video.user_id"
+											<a class="afterglow post-thumb" :href="'video.html?id=' + video.id"
 												data-lity>
 												<span class="play-btn-border" title="Play"><i
 														class="fa fa-play-circle headline-round" aria-hidden="true"></i>
@@ -146,22 +146,22 @@
 												<div class="cactus-note ct-time font-size-1">
 													<span>{{ video.duration }}</span>
 												</div>
-												<img class="img-responsive" :src="video.image_path" :alt="video.name">
+												<img class="img-responsive" :src="video.img_path" :alt="video.name">
 											</a>
 										</div>
 										<div class="infor">
 											<h4>
-												<a class="title" :href="'video.html?id=' + video.user_id">{{ video.name
+												<a class="title" :href="'video.html?id=' + video.id">{{ video.name
 													}}</a>
 											</h4>
-											<span class="posts-txt" title="Posts from Channel">
-												<i class="fa fa-thumbs-up" aria-hidden="true"></i>
-												{{ video.heat }}
-												<div class="ratings">
-													<i class="fa"
-														:class="{'fa-star': index < Math.floor(video.score/2), 'fa-star-half-o': index === Math.floor(video.score/2) && video.score % 2 !== 0, 'fa-star-o': index > Math.floor(video.score/2)}"
-														v-for="index in 5" aria-hidden="true"></i>
-												</div>
+											<!-- <span class="posts-txt" title="Posts from Channel">
+												<i class="fa fa-thumbs-up" aria-hidden="true"></i> -->
+											{{ video.heat }}
+											<div class="ratings">
+												<i class="fa"
+													:class="{'fa-star': index < Math.floor(video.score/2), 'fa-star-half-o': index === Math.floor(video.score/2) && video.score % 2 !== 0, 'fa-star-o': index > Math.floor(video.score/2)}"
+													v-for="index in 5" aria-hidden="true"></i>
+											</div>
 										</div>
 									</div>
 								</article>
@@ -215,18 +215,17 @@
 					<div class="tab-content">
 						<!-- 视频列表区域 -->
 						<div class="row auto-clear">
-							<article class="col-lg-2 col-md-4 col-sm-4 post post-medium" 
-									 v-for="video in currentVideos" 
-									 :key="video.id">
+							<article class="col-lg-2 col-md-4 col-sm-4 post post-medium" v-for="video in currentVideos"
+								:key="video.id">
 								<div class="thumbr">
-									<a class="post-thumb" :href="'video.html?id=' + video.user_id" data-lity>
+									<a class="post-thumb" :href="'video.html?id=' + video.id" data-lity>
 										<span class="play-btn-border" title="Play">
 											<i class="fa fa-play-circle headline-round" aria-hidden="true"></i>
 										</span>
 										<div class="cactus-note ct-time font-size-1">
 											<span>{{video.duration}}</span>
 										</div>
-										<img class="img-responsive" :src="video.img_path" :alt="video.name">
+										<img class="img-responsive thumb-img" :src="video.img_path" :alt="video.name">
 									</a>
 								</div>
 								<div class="infor">
@@ -234,14 +233,12 @@
 										<a class="title" :href="'video.html?id=' + video.user_id">{{video.name}}</a>
 									</h4>
 									<span class="posts-txt" title="Posts from Channel">
-										<i class="fa fa-thumbs-up" aria-hidden="true"></i>{{video.heat}}
+										<i class="fa fa-thumbs-up" aria-hidden="true"></i>{{video.likes}}
 									</span>
 									<div class="ratings">
-										<i class="fa" v-for="n in 5" :key="n"
-										   :class="{'fa-star': n <= Math.floor(video.score/2), 
-												   'fa-star-half-o': n === Math.ceil(video.score/2) && video.score % 2 !== 0, 
-												   'fa-star-o': n > Math.ceil(video.score/2)}"
-										   aria-hidden="true"></i>
+										<i class="fa" v-for="n in 5" :key="n" :class="{'fa-star': n <= Math.floor(video.score/2), 
+                                               'fa-star-half-o': n === Math.ceil(video.score/2) && video.score % 2 !== 0, 
+                                               'fa-star-o': n > Math.ceil(video.score/2)}" aria-hidden="true"></i>
 									</div>
 								</div>
 							</article>
@@ -262,25 +259,21 @@
 						<div class="row">
 							<div class="col-md-12 thumbr">
 								<div class="flag flag1"><i class="fa fa-star"></i></div>
-								<a class="post-thumb" href="" data-lity>
+								<!-- <a class="post-thumb" href="" data-lity>
 									<span class="play-btn-border" title="Play"><i
 											class="fa fa-play-circle headline-round" aria-hidden="true"></i></span>
-									<div class="cactus-note ct-time font-size-1"><span>02:02</span></div>
-									<img class="img-responsive" src="img/thumbs/thumb-s.jpg" alt="#">
-								</a>
+									<div class="cactus-note ct-time font-size-1"><span></span></div>
+									<img class="img-responsive" src="" alt="#">
+								</a> -->
 							</div>
 							<div class="col-md-12 infor">
 								<h4>
-									<a class="title" href="#">It always seems impossible until it’s done.</a>
+									<a class="title" href="#"></a>
 								</h4>
-								<span class="posts-txt" title="Posts from Channel"><i class="fa fa-thumbs-up"
-										aria-hidden="true"></i>20.895</span>
+								<!-- <span class="posts-txt" title="Posts from Channel"><i class="fa fa-thumbs-up"
+										aria-hidden="true"></i></span> -->
 								<div class="ratings">
-									<i class="fa fa-star" aria-hidden="true"></i>
-									<i class="fa fa-star" aria-hidden="true"></i>
-									<i class="fa fa-star-half-o" aria-hidden="true"></i>
-									<i class="fa fa-star-o"></i>
-									<i class="fa fa-star-half"></i>
+
 								</div>
 							</div>
 						</div>
@@ -300,7 +293,7 @@
 					<article>
 						<h2 class="icon"><i class="fa fa-tag" aria-hidden="true"></i>标签</h2>
 						<ul class="footer-tags">
-							<li><a href="#">videos</a></li>
+							<!-- <li><a href="#">videos</a></li>
 							<li><a href="#">premium</a></li>
 							<li><a href="#">hair</a></li>
 							<li><a href="#">beauty</a></li>
@@ -308,7 +301,7 @@
 							<li><a href="#">lifestyle</a></li>
 							<li><a href="#">sport</a></li>
 							<li><a href="#">money</a></li>
-							<li><a href="#">comments</a></li>
+							<li><a href="#">comments</a></li> -->
 						</ul>
 					</article>
 					<div class="clearfix spacer"></div>
@@ -322,15 +315,15 @@
 							</a>
 							<div class="infor">
 								<h4>
-									<a class="title" href="#">Lazy Betty B*tch</a>
+									<a class="title" href="#"></a>
 								</h4>
-								<div class="ratings">
+								<!-- <div class="ratings">
 									<i class="fa fa-star" aria-hidden="true"></i>
 									<i class="fa fa-star" aria-hidden="true"></i>
 									<i class="fa fa-star-half-o" aria-hidden="true"></i>
 									<i class="fa fa-star-o"></i>
 									<i class="fa fa-star-half"></i>
-								</div>
+								</div> -->
 							</div>
 						</div>
 					</article>
@@ -348,160 +341,79 @@
 				<!-- EDITORS CHOICE -->
 				<section id="editor-choice" class="featured-bg">
 					<h2 class="icon"><i class="fa fa-trophy" aria-hidden="true"></i>编辑推荐</h2>
-					<div class="row auto-clear">
-						<!-- MAIN POST -->
-						<div class="col-lg-6 col-md-12 col-sm-12">
-							<!-- POST L size -->
-							<article class="post post-medium main-large-post">
+					<div class="editor-choice-container" v-if="top_rated_videos && top_rated_videos.length > 0">
+						<!-- 左侧大图 -->
+						<div class="main-video">
+							<article class="post">
 								<div class="thumbr">
 									<div class="flag flag1"><i class="fa fa-star"></i></div>
-									<a class="post-thumb" href="" data-lity>
-										<span class="play-btn-border" title="Play"><i
-												class="fa fa-play-circle headline-round" aria-hidden="true"></i></span>
-										<img class="img-responsive" src="img/thumbs/editors-large.jpg" alt="#">
+									<a class="post-thumb" target="_blank"
+										:href="'video.html?id=' + top_rated_videos[0].id">
+										<span class="play-btn-border" title="Play">
+											<i class="fa fa-play-circle headline-round" aria-hidden="true"></i>
+										</span>
+										<img class="img-responsive" :src="top_rated_videos[0].img_path"
+											:alt="top_rated_videos[0].name">
 									</a>
 									<div class="infor">
 										<h4>
-											<a class="title" href="#">Kiss me if I’m wrong but Dinosaurs still exist?
-												Right?</a>
+											<a class="title"
+												:href="'video.html?id=' + top_rated_videos[0].id">{{top_rated_videos[0].name}}</a>
 										</h4>
-										<span class="posts-txt" title="Posts from Channel"><i class="fa fa-thumbs-up"
-												aria-hidden="true"></i>20.895</span>
+										<span class="posts-txt" title="Posts from Channel">
+											<i class="fa fa-thumbs-up"
+												aria-hidden="true"></i>{{top_rated_videos[0].likes}}
+										</span>
 										<div class="ratings">
-											<i class="fa fa-star" aria-hidden="true"></i>
-											<i class="fa fa-star" aria-hidden="true"></i>
-											<i class="fa fa-star-half-o" aria-hidden="true"></i>
-											<i class="fa fa-star-o"></i>
-											<i class="fa fa-star-half"></i>
-										</div>
-										<div class="vid-time-block">
-											<div class="cactus-note ct-time font-size-1"><span>02:02</span></div>
+											<i class="fa" v-for="n in 5" :key="n" :class="{'fa-star': n <= Math.floor(top_rated_videos[0].score/2), 
+                                      'fa-star-half-o': n === Math.ceil(top_rated_videos[0].score/2) && top_rated_videos[0].score % 2 !== 0, 
+                                      'fa-star-o': n > Math.ceil(top_rated_videos[0].score/2)}" aria-hidden="true">
+											</i>
 										</div>
 									</div>
 								</div>
 							</article>
 						</div>
-						<!-- SMALL POSTS -->
-						<div class="col-lg-6 col-md-12 col-sm-12 editor-choice-small">
-							<div class="row 3-right-posts">
-								<article class="col-sm-6 post post-medium small-post">
+
+						<!-- 右侧4个小图 -->
+						<div class="side-videos">
+							<div class="side-videos-grid">
+								<article class="post small-post" v-for="(video, index) in top_rated_videos.slice(1, 5)"
+									:key="video.id">
 									<div class="thumbr">
 										<div class="flag flag1"><i class="fa fa-star"></i></div>
-										<a class="post-thumb" href="" data-lity>
-											<span class="play-btn-border" title="Play"><i
-													class="fa fa-play-circle headline-round"
-													aria-hidden="true"></i></span>
-											<img class="img-responsive" src="img/thumbs/thumb-s.jpg" alt="#">
+										<a class="post-thumb" target="_blank" :href="'video.html?id=' + video.id">
+											<span class="play-btn-border" title="Play">
+												<i class="fa fa-play-circle headline-round" aria-hidden="true"></i>
+											</span>
+											<img class="img-responsive" :src="video.img_path" :alt="video.name">
 										</a>
 										<div class="infor">
 											<h4>
-												<a class="title" href="#">Kiss me if I’m wrong but Dinosaurs still
-													exist? Right?</a>
+												<a class="title" target="_blank"
+													:href="'video.html?id=' + video.id">{{video.name}}</a>
 											</h4>
-											<div class="vid-time-block home-small-posts">
-												<span class="posts-txt" title="Posts from Channel"><i
-														class="fa fa-thumbs-up" aria-hidden="true"></i>20.895</span>
-												<div class="ratings">
-													<i class="fa fa-star" aria-hidden="true"></i>
-													<i class="fa fa-star" aria-hidden="true"></i>
-													<i class="fa fa-star-half-o" aria-hidden="true"></i>
-													<i class="fa fa-star-o"></i>
-													<i class="fa fa-star-half"></i>
-												</div>
-												<div class="cactus-note ct-time font-size-1"><span>02:02</span></div>
-											</div>
-										</div>
-									</div>
-								</article>
-								<article class="col-sm-6 post post-medium small-post">
-									<div class="thumbr">
-										<div class="flag flag1"><i class="fa fa-star"></i></div>
-										<a class="post-thumb" href="" data-lity>
-											<span class="play-btn-border" title="Play"><i
-													class="fa fa-play-circle headline-round"
-													aria-hidden="true"></i></span>
-											<img class="img-responsive" src="img/thumbs/thumb-s2.jpg" alt="#">
-										</a>
-										<div class="infor">
-											<h4>
-												<a class="title" href="#">Kiss me if I’m wrong but Dinosaurs still
-													exist? Right?</a>
-											</h4>
-											<div class="vid-time-block home-small-posts">
-												<span class="posts-txt" title="Posts from Channel"><i
-														class="fa fa-thumbs-up" aria-hidden="true"></i>20.895</span>
-												<div class="ratings">
-													<i class="fa fa-star" aria-hidden="true"></i>
-													<i class="fa fa-star" aria-hidden="true"></i>
-													<i class="fa fa-star-half-o" aria-hidden="true"></i>
-													<i class="fa fa-star-o"></i>
-													<i class="fa fa-star-half"></i>
-												</div>
-												<div class="cactus-note ct-time font-size-1"><span>02:02</span></div>
-											</div>
-										</div>
-									</div>
-								</article>
-								<article class="col-sm-6 post post-medium small-post">
-									<div class="thumbr">
-										<div class="flag flag1"><i class="fa fa-star"></i></div>
-										<a class="post-thumb" href="" data-lity>
-											<span class="play-btn-border" title="Play"><i
-													class="fa fa-play-circle headline-round"
-													aria-hidden="true"></i></span>
-											<img class="img-responsive" src="img/thumbs/thumb-s3.jpg" alt="#">
-										</a>
-										<div class="infor">
-											<h4>
-												<a class="title" href="#">Kiss me if I’m wrong but Dinosaurs still
-													exist? Right?</a>
-											</h4>
-											<div class="vid-time-block home-small-posts">
-												<span class="posts-txt" title="Posts from Channel"><i
-														class="fa fa-thumbs-up" aria-hidden="true"></i>20.895</span>
-												<div class="ratings">
-													<i class="fa fa-star" aria-hidden="true"></i>
-													<i class="fa fa-star" aria-hidden="true"></i>
-													<i class="fa fa-star-half-o" aria-hidden="true"></i>
-													<i class="fa fa-star-o"></i>
-													<i class="fa fa-star-half"></i>
-												</div>
-												<div class="cactus-note ct-time font-size-1"><span>02:02</span></div>
-											</div>
-										</div>
-									</div>
-								</article>
-								<article class="col-sm-6 post post-medium small-post">
-									<div class="thumbr">
-										<div class="flag flag1"><i class="fa fa-star"></i></div>
-										<a class="post-thumb" href="" data-lity>
-											<span class="play-btn-border" title="Play"><i
-													class="fa fa-play-circle headline-round"
-													aria-hidden="true"></i></span>
-											<img class="img-responsive" src="img/thumbs/thumb-s4.jpg" alt="#">
-										</a>
-										<div class="infor">
-											<h4>
-												<a class="title" href="#">Kiss me if I’m wrong but Dinosaurs still
-													exist? Right?</a>
-											</h4>
-											<div class="vid-time-block home-small-posts">
-												<span class="posts-txt" title="Posts from Channel"><i
-														class="fa fa-thumbs-up" aria-hidden="true"></i>20.895</span>
-												<div class="ratings">
-													<i class="fa fa-star" aria-hidden="true"></i>
-													<i class="fa fa-star" aria-hidden="true"></i>
-													<i class="fa fa-star-half-o" aria-hidden="true"></i>
-													<i class="fa fa-star-o"></i>
-													<i class="fa fa-star-half"></i>
-												</div>
-												<div class="cactus-note ct-time font-size-1"><span>02:02</span></div>
+											<span class="posts-txt" title="Posts from Channel">
+												<i class="fa fa-thumbs-up" aria-hidden="true"></i>{{video.likes}}
+											</span>
+											<div class="ratings">
+												<i class="fa" v-for="n in 5" :key="n" :class="{'fa-star': n <= Math.floor(video.score/2), 
+                                      'fa-star-half-o': n === Math.ceil(video.score/2) && video.score % 2 !== 0, 
+                                      'fa-star-o': n > Math.ceil(video.score/2)}" aria-hidden="true">
+												</i>
 											</div>
 										</div>
 									</div>
 								</article>
 							</div>
 						</div>
+					</div>
+					<!-- 添加加载中和无数据状态 -->
+					<div v-else-if="isLoading" class="text-center">
+						<p>加载中...</p>
+					</div>
+					<div v-else class="text-center">
+						<p>暂无推荐视频</p>
 					</div>
 				</section>
 				<div class="clearfix"></div>
@@ -693,15 +605,15 @@
 											</a>
 											<div class="infor">
 												<h4>
-													<a class="title" href="#">Little Miss Piggy</a>
+													<a class="title" href="#"></a>
 												</h4>
-												<div class="ratings">
+												<!-- <div class="ratings">
 													<i class="fa fa-star" aria-hidden="true"></i>
 													<i class="fa fa-star" aria-hidden="true"></i>
 													<i class="fa fa-star-half-o" aria-hidden="true"></i>
 													<i class="fa fa-star-o"></i>
 													<i class="fa fa-star-half"></i>
-												</div>
+												</div> -->
 											</div>
 										</div>
 									</article>
@@ -715,15 +627,15 @@
 											</a>
 											<div class="infor">
 												<h4>
-													<a class="title" href="#">Dimples Little Miss Cupcake</a>
+													<a class="title" href="#"></a>
 												</h4>
-												<div class="ratings">
+												<!-- <div class="ratings">
 													<i class="fa fa-star" aria-hidden="true"></i>
 													<i class="fa fa-star" aria-hidden="true"></i>
 													<i class="fa fa-star-half-o" aria-hidden="true"></i>
 													<i class="fa fa-star-o"></i>
 													<i class="fa fa-star-half"></i>
-												</div>
+												</div> -->
 											</div>
 										</div>
 									</article>
@@ -737,15 +649,15 @@
 											</a>
 											<div class="infor">
 												<h4>
-													<a class="title" href="#">Angel Snowflakes</a>
+													<a class="title" href="#"></a>
 												</h4>
-												<div class="ratings">
+												<!-- <div class="ratings">
 													<i class="fa fa-star" aria-hidden="true"></i>
 													<i class="fa fa-star" aria-hidden="true"></i>
 													<i class="fa fa-star-half-o" aria-hidden="true"></i>
 													<i class="fa fa-star-o"></i>
 													<i class="fa fa-star-half"></i>
-												</div>
+												</div> -->
 											</div>
 										</div>
 									</article>
@@ -759,15 +671,15 @@
 											</a>
 											<div class="infor">
 												<h4>
-													<a class="title" href="#">Brutal Lovely Lights</a>
+													<a class="title" href="#"></a>
 												</h4>
-												<div class="ratings">
+												<!-- <div class="ratings">
 													<i class="fa fa-star" aria-hidden="true"></i>
 													<i class="fa fa-star" aria-hidden="true"></i>
 													<i class="fa fa-star-half-o" aria-hidden="true"></i>
 													<i class="fa fa-star-o"></i>
 													<i class="fa fa-star-half"></i>
-												</div>
+												</div> -->
 											</div>
 										</div>
 									</article>
@@ -781,15 +693,15 @@
 											</a>
 											<div class="infor">
 												<h4>
-													<a class="title" href="#">Snerus Dear sweetie</a>
+													<a class="title" href="#"></a>
 												</h4>
-												<div class="ratings">
+												<!-- <div class="ratings">
 													<i class="fa fa-star" aria-hidden="true"></i>
 													<i class="fa fa-star" aria-hidden="true"></i>
 													<i class="fa fa-star-half-o" aria-hidden="true"></i>
 													<i class="fa fa-star-o"></i>
 													<i class="fa fa-star-half"></i>
-												</div>
+												</div> -->
 											</div>
 										</div>
 									</article>
@@ -803,15 +715,15 @@
 											</a>
 											<div class="infor">
 												<h4>
-													<a class="title" href="#">Fruity Touch</a>
+													<a class="title" href="#"></a>
 												</h4>
-												<div class="ratings">
+												<!-- <div class="ratings">
 													<i class="fa fa-star" aria-hidden="true"></i>
 													<i class="fa fa-star" aria-hidden="true"></i>
 													<i class="fa fa-star-half-o" aria-hidden="true"></i>
 													<i class="fa fa-star-o"></i>
 													<i class="fa fa-star-half"></i>
-												</div>
+												</div> -->
 											</div>
 										</div>
 									</article>
@@ -829,15 +741,15 @@
 											</a>
 											<div class="infor">
 												<h4>
-													<a class="title" href="#">Little Miss Piggy</a>
+													<a class="title" href="#"></a>
 												</h4>
-												<div class="ratings">
+												<!-- <div class="ratings">
 													<i class="fa fa-star" aria-hidden="true"></i>
 													<i class="fa fa-star" aria-hidden="true"></i>
 													<i class="fa fa-star-half-o" aria-hidden="true"></i>
 													<i class="fa fa-star-o"></i>
 													<i class="fa fa-star-half"></i>
-												</div>
+												</div> -->
 											</div>
 										</div>
 									</article>
@@ -851,15 +763,15 @@
 											</a>
 											<div class="infor">
 												<h4>
-													<a class="title" href="#">Dimples Little Miss Cupcake</a>
+													<a class="title" href="#"></a>
 												</h4>
-												<div class="ratings">
+												<!-- <div class="ratings">
 													<i class="fa fa-star" aria-hidden="true"></i>
 													<i class="fa fa-star" aria-hidden="true"></i>
 													<i class="fa fa-star-half-o" aria-hidden="true"></i>
 													<i class="fa fa-star-o"></i>
 													<i class="fa fa-star-half"></i>
-												</div>
+												</div> -->
 											</div>
 										</div>
 									</article>
@@ -873,15 +785,15 @@
 											</a>
 											<div class="infor">
 												<h4>
-													<a class="title" href="#">Angel Snowflakes</a>
+													<a class="title" href="#"></a>
 												</h4>
-												<div class="ratings">
+												<!-- <div class="ratings">
 													<i class="fa fa-star" aria-hidden="true"></i>
 													<i class="fa fa-star" aria-hidden="true"></i>
 													<i class="fa fa-star-half-o" aria-hidden="true"></i>
 													<i class="fa fa-star-o"></i>
 													<i class="fa fa-star-half"></i>
-												</div>
+												</div> -->
 											</div>
 										</div>
 									</article>
@@ -895,15 +807,15 @@
 											</a>
 											<div class="infor">
 												<h4>
-													<a class="title" href="#">Brutal Lovely Lights</a>
+													<a class="title" href="#"></a>
 												</h4>
-												<div class="ratings">
+												<!-- <div class="ratings">
 													<i class="fa fa-star" aria-hidden="true"></i>
 													<i class="fa fa-star" aria-hidden="true"></i>
 													<i class="fa fa-star-half-o" aria-hidden="true"></i>
 													<i class="fa fa-star-o"></i>
 													<i class="fa fa-star-half"></i>
-												</div>
+												</div> -->
 											</div>
 										</div>
 									</article>
@@ -917,15 +829,15 @@
 											</a>
 											<div class="infor">
 												<h4>
-													<a class="title" href="#">Snerus Dear sweetie</a>
+													<a class="title" href="#"></a>
 												</h4>
-												<div class="ratings">
+												<!-- <div class="ratings">
 													<i class="fa fa-star" aria-hidden="true"></i>
 													<i class="fa fa-star" aria-hidden="true"></i>
 													<i class="fa fa-star-half-o" aria-hidden="true"></i>
 													<i class="fa fa-star-o"></i>
 													<i class="fa fa-star-half"></i>
-												</div>
+												</div> -->
 											</div>
 										</div>
 									</article>
@@ -939,15 +851,15 @@
 											</a>
 											<div class="infor">
 												<h4>
-													<a class="title" href="#">Fruity Touch</a>
+													<a class="title" href="#"></a>
 												</h4>
-												<div class="ratings">
+												<!-- <div class="ratings">
 													<i class="fa fa-star" aria-hidden="true"></i>
 													<i class="fa fa-star" aria-hidden="true"></i>
 													<i class="fa fa-star-half-o" aria-hidden="true"></i>
 													<i class="fa fa-star-o"></i>
 													<i class="fa fa-star-half"></i>
-												</div>
+												</div> -->
 											</div>
 										</div>
 									</article>
@@ -1352,6 +1264,6 @@
 <!-- 在body结束标签前添加 -->
 <script src="https://cdn.jsdelivr.net/npm/vue@2.7.16"></script>
 <!-- 注意：移除 type="module" -->
-<script src="js/index.js"></script>
+<script src="js/index.js" defer></script>
 
 </html>
