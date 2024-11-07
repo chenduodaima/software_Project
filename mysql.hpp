@@ -1,19 +1,22 @@
 #pragma once
+
 #include <iostream>
+#include <vector>
+#include <thread>
+#include <chrono>
+#include <mutex>
+#include <condition_variable>
 #include <mariadb/mysql.h>
 #include <jsoncpp/json/json.h>
-#include <vector>
-#include <pthread.h>
 #include "Log.hpp"
 
 namespace my
 {
-#define HOST "127.0.0.1"
-#define USER "root"
-#define PASSWD "root"
-#define DBNAME "software_project"
+    static constexpr const char *HOST = "127.0.0.1";
+    static constexpr const char *USER = "root";
+    static constexpr const char *PASSWD = "root";
+    static constexpr const char *DBNAME = "sw_pj";
 
-    // 视频信息结构体
     struct VideoInfo
     {
         int id;                 // 视频id
@@ -30,7 +33,7 @@ namespace my
         std::string update_at;  // 更新时间
         int user_id;            // 用户id
         int heat;               // 视频热度
-        float rating;           // 视频评分(0.0-5.0)
+        float rating;           // 视频评分
         std::string duration;   // 视频时长
     };
     // 打印视频信息，只打印视频名称、作者、视频简介、视频资源路径、视频封面路径
@@ -82,9 +85,9 @@ namespace my
     public:
         Video(std::string table_name = TABLE_NAME)
             : _table_name(table_name),
-              _heat_video(8), _max_heat_video(6), _newest_video(6),
-              _most_viewed_video(6), _most_commented_video(6), _most_liked_video(6),
-              _most_favorited_video(6), _top_rated_video(5),
+              _heat_video(8), _max_heat_video(8), _newest_video(8),
+              _most_viewed_video(8), _most_commented_video(8), _most_liked_video(8),
+              _most_favorited_video(8), _top_rated_video(8),
               _running(true), _db_busy(false)
         {
             _mysql = MySQLInit();
@@ -820,7 +823,7 @@ namespace my
                     }
                     ReleaseDBLock();
                 }
-                std::this_thread::sleep_for(std::chrono::seconds(5));
+                std::this_thread::sleep_for(std::chrono::seconds(30));
             }
         }
 
@@ -872,7 +875,7 @@ namespace my
                     }
                     ReleaseDBLock();
                 }
-                std::this_thread::sleep_for(std::chrono::seconds(5));
+                std::this_thread::sleep_for(std::chrono::seconds(30));
             }
         }
 
@@ -924,7 +927,7 @@ namespace my
                     }
                     ReleaseDBLock();
                 }
-                std::this_thread::sleep_for(std::chrono::seconds(5));
+                std::this_thread::sleep_for(std::chrono::seconds(30));
             }
         }
 
@@ -976,7 +979,7 @@ namespace my
                     }
                     ReleaseDBLock();
                 }
-                std::this_thread::sleep_for(std::chrono::seconds(5));
+                std::this_thread::sleep_for(std::chrono::seconds(30));
             }
         }
 
@@ -1028,7 +1031,7 @@ namespace my
                     }
                     ReleaseDBLock();
                 }
-                std::this_thread::sleep_for(std::chrono::seconds(5));
+                std::this_thread::sleep_for(std::chrono::seconds(30));
             }
         }
 
@@ -1039,7 +1042,7 @@ namespace my
                 LogMessage(Debug, "我抢到数据库锁了\n");
                 if (AcquireDBLock())
                 {
-                    std::string sql = "SELECT * FROM video ORDER BY likes DESC LIMIT 6;";
+                    std::string sql = "SELECT * FROM video ORDER BY likes DESC LIMIT 8;";
                     if (Execute(_mysql, sql))
                     {
                         LogMessage(Info, "更新最多点赞视频\n");
@@ -1080,7 +1083,7 @@ namespace my
                     }
                     ReleaseDBLock();
                 }
-                std::this_thread::sleep_for(std::chrono::seconds(5));
+                std::this_thread::sleep_for(std::chrono::seconds(30));
             }
         }
 
@@ -1132,7 +1135,7 @@ namespace my
                     }
                     ReleaseDBLock();
                 }
-                std::this_thread::sleep_for(std::chrono::seconds(5));
+                std::this_thread::sleep_for(std::chrono::seconds(30));
             }
         }
 
@@ -1184,7 +1187,7 @@ namespace my
                     }
                     ReleaseDBLock();
                 }
-                std::this_thread::sleep_for(std::chrono::seconds(5));
+                std::this_thread::sleep_for(std::chrono::seconds(30));
             }
         }
 
@@ -1224,4 +1227,4 @@ namespace my
         // 线程运行标志
         bool _running;
     };
-}
+} // namespace my
