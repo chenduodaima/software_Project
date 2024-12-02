@@ -1,0 +1,31 @@
+.page-button-container {
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+}
+
+.page-button-container button {
+    background-color: #007bff; /* 按钮背景色 */
+    color: white; /* 按钮文字颜色 */
+    border: none; /* 去掉边框 */
+    padding: 10px 20px; /* 内边距 */
+    margin: 0 5px; /* 按钮之间的间距 */
+    border-radius: 5px; /* 圆角 */
+    cursor: pointer; /* 鼠标悬停时显示手型 */
+    transition: background-color 0.3s ease; /* 背景色过渡效果 */
+}
+
+.page-button-container button:hover {
+    background-color: #0056b3; /* 悬停时的背景色 */
+}
+
+.page-button-container button[active] {
+    background-color: #0056b3; /* 当前页的背景色 */
+    font-weight: bold; /* 当前页的字体加粗 */
+}
+
+/* 添加到你的 CSS 文件中 */
+.meta-i:hover {
+    color: #007bff; /* 鼠标悬停时的颜色 */
+    transition: color 0.3s; /* 添加过渡效果 */
+}

@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="OrcasThemes">
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+    <title>个人中心</title>
+    <!-- Bootstrap core CSS -->
+    <link href="css/bootstrap.css" rel="stylesheet">
+    <!-- Custom styles for this template -->
+    <link rel="stylesheet" href="css/screen.css">
+    <link rel="stylesheet" href="css/animation.css">
+    <link rel="stylesheet" href="css/font-awesome.css">
+    <link rel="stylesheet" href="css/personal.css">
+</head>
+
+<body>
+    <div id="personal">
+        <div class="container-fluid">
+            <div class="col-lg-3 col-md-6 col-sm-5 col-xs-8">
+                <a class="main-logo" href="index.html"><img src="img/main-logo.png" class="main-logo img-responsive"
+                        alt="Muvee Reviews" title="Muvee Reviews"></a>
+            </div>
+        </div>
+        <div class="personal-container">
+            <div class="left-nav">
+                <div v-if="userinfo.user_head_portrait_path != null" class="user-info">
+                    <img :src=userinfo.user_head_portrait_path class="avatar-large" alt="用户头像">
+                    <h3 class="username">{{ userinfo.name}}</h3>
+                </div>
+                <div v-else>
+                    <img src="img/backgrounds/default.jpg" class="avatar-large" alt="用户头像">
+                    <h3 class="username">辰嘉日</h3>
+                </div>
+                <ul class="nav-list">
+                    <li class="nav-item" :class="{ active: activePage === 'profile' }" data-page="profile"
+                        @click="handleNavClick('profile')">
+                        <i class="fa fa-user"></i>
+                        <span>个人资料</span>
+                    </li>
+                    <li class="nav-item" :class="{ active: activePage === 'security' }" data-page="security"
+                        @click="handleNavClick('security')">
+                        <i class="fa fa-lock"></i>
+                        <span>账号安全</span>
+                    </li>
+                    <li class="nav-item" :class="{ active: activePage === 'logout' }" data-page="logout"
+                        @click="handleNavClick('logout')">
+                        <i class="fa fa-sign-out"></i>
+                        <span>退出登录</span>
+                    </li>
+                </ul>
+            </div>
+
+            <!-- 右侧内容区域 -->
+            <div class="right-content">
+                <!-- 个人资料页面 -->
+                <div class="content-page" id="profile-page" :class="{ active: activePage === 'profile' }">
+                    <h2>个人资料</h2>
+                    <div class="form-container">
+                        <!-- 头像上传部分 -->
+                        <div class="form-group">
+                            <div v-if="userinfo.user_head_portrait_path != null" class="avatar-upload">
+                                <img :src="userinfo.user_head_portrait_path" alt="当前头像">
+                                <button class="btn btn-primary" @click="triggerFileSelect">更换头像</button>
+                                <input type="file" id="avatarUpload" @change="handleFileChange" accept="image/*"
+                                    style="display: none;">
+                                <div v-if="previewUrl" class="avatar">
+                                    <img :src="previewUrl" alt="头像预览" class="avatar-preview">
+                                </div>
+                                <button class="btn btn-success" @click="uploadHeadPortrait">确定</button>
+                            </div>
+                            <div v-else class="avatar-upload">
+                                <img src="img/backgrounds/default.jpg" alt="默认头像">
+                                <button class="btn btn-primary">更换头像</button>
+                            </div>
+                        </div>
+
+                        <!-- 修改用户名部分 -->
+                        <div class="form-group">
+                            <label>用户名</label>
+                            <div class="edit-group">
+                                <input type="text" class="form-control" v-model="preName" :placeholder="userinfo.name"
+                                    :readonly="!isEditing">
+                                <button class="edit-btn" @click="toggleEdit">
+                                    <i class="fa fa-pencil"></i>
+                                    修改
+                                </button>
+                                <button class="edit-btn" @click="endEditName" v-show="isEditing">
+                                    <i class="fa fa-save"></i>
+                                    保存
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 账号安全页面 -->
+                <div class="content-page" id="security-page" :class="{ active: activePage === 'security' }">
+                    <h2>账号安全</h2>
+                    <div class="form-container">
+                        <div class="form-group">
+                            <label>新账号</label>
+                            <input type="text" class="form-control" v-model="newUserName"
+                                :placeholder="userinfo.username" :readonly="!isEditing">
+                        </div>
+                        <div class="form-group">
+                            <label>新密码</label>
+                            <input type="password" class="form-control" v-model="newPassword" :readonly="!isEditing">
+                        </div>
+                        <div class="form-group">
+                            <label>确认新密码</label>
+                            <input type="password" class="form-control" v-model="againPassword" :readonly="!isEditing">
+                        </div>
+                        <button class="btn btn-success save-btn" @click="toggleEdit">修改密码</button><br>
+                        <button class="btn btn-success save-btn" @click="endEditUserNameAndPassword"
+                            v-show="isEditing">保存</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- JS -->
+    <script src="js/jquery-1.12.1.min.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+    <script src="js/lity.js"></script>
+    <script src="/node_modules/vue/dist/vue.global.js"></script>
+    <script src="node_modules/axios/dist/axios.min.js"></script>
+    <script src="./js/personal.js"></script>
+</body>
+
+</html>

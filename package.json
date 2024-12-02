@@ -1,0 +1,27 @@
+{
+  "name": "software_project",
+  "version": "1.0.0",
+  "description": "存放软件工程项目（视频点播）的代码",
+  "main": "index.js",
+  "directories": {
+    "test": "test"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/chenduodaima/software_Project.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/chenduodaima/software_Project/issues"
+  },
+  "homepage": "https://github.com/chenduodaima/software_Project#readme",
+  "dependencies": {
+    "jquery": "^3.7.1",
+    "vue": "^3.5.12"
+  }
+}
