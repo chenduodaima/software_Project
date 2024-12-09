@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="OrcasThemes">
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+    <title>搜索</title>
+    <script>
+        // 获取URL参数的函数
+        function getUrlParam(param) {
+            const params = new URLSearchParams(window.location.search);
+            return params.get(param);
+        }
+        // 获取'search'参数的值
+        const searchParam = getUrlParam('search');
+
+        // 如果'search'参数存在，更新<title>标签
+        if (searchParam) {
+            document.getElementById('dynamic-title').textContent = searchParam;
+        }
+    </script>
+    <!-- Bootstrap core CSS -->
+    <link rel="stylesheet" href="css/bootstrap.css">
+    <!-- Custom styles for this template -->
+    <link rel="stylesheet" href="css/screen.css">
+    <link rel="stylesheet" href="css/animation.css">
+    <link rel="stylesheet" href="css/mymain.css">
+    <link rel="stylesheet" href="css/font-awesome.css">
+    <link rel="stylesheet" href="css/lity.css">
+    <link rel="stylesheet" href="css/search.css">
+</head>
+
+<body>
+    <div id="home" class="container-fluid standard-bg">
+        <!-- HEADER -->
+        <div class="row header-top">
+            <div class="col-lg-3 col-md-6 col-sm-5 col-xs-8">
+                <a class="main-logo" href="#"><img src="img/main-logo.png" class="main-logo img-responsive"
+                        alt="Muvee Reviews" title="Muvee Reviews"></a>
+            </div>
+            <!-- 添加头像容器 -->
+            <div class="col-lg-9 col-md-6 col-sm-7 col-xs-4">
+                <div v-if="userinfo" class="avatar-container">
+                    <img :src="userinfo.user_head_portrait_path" class="avatar" alt="用户头像"
+                        onclick="window.location.href='personal.html'">
+                    <div class="user-info-box">
+                        <span class="user-info-text">欢迎回来，{{userinfo.name}}</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- MENU -->
+        <div class="row home-mega-menu ">
+            <div class="col-md-12">
+                <nav class="navbar navbar-default">
+                    <div class="navbar-header">
+                        <button class="navbar-toggle" type="button" data-toggle="collapse"
+                            data-target=".js-navbar-collapse">
+                            <span class="sr-only">导航栏</span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                        </button>
+                    </div>
+                    <div class="collapse navbar-collapse js-navbar-collapse megabg dropshd ">
+                        <ul class="nav navbar-nav">
+                            <li><a href="index.html">主页</a></li>
+                            <li class="active"><a href="search.html">搜索</a></li>
+							<!-- <li><a href="tag.html">标签</a></li> -->
+							<li><a href="personal.html">个人中心</a></li>
+							<li><a href="login.html">登录</a></li>
+                        </ul>
+                    </div>
+                </nav>
+            </div>
+        </div>
+        <div id="search" class="search-container">
+            <input id="searchQuery" type="text" class="search-box" v-model="searchQuery" @keyup.enter="redirectToSearch">
+            <button class="search-button" @click="redirectToSearch" >搜索</button>
+        </div>
+        <div>
+            <select v-model="selectedType" @change="filterByType" style="color: #e0d7d7;">
+                <option value="All">全部</option>
+                <option v-for="type in totalType" :key="type.type_id" :value="type.type_id">
+                    {{ type.type_name }}
+                </option>
+            </select>
+        </div>
+        <div class="additional-box">
+            <div class="dropdown-content sort-button-container">
+                <button @click="sortBy('comprehensive')" :class="{active: sortType === 'comprehensive'}">综合排序</button>
+                <button @click="sortBy('views')" :class="{active: sortType === 'views'}">最多播放</button>
+                <button @click="sortBy('release_time')" :class="{active: sortType === 'release_time'}">最新发布</button>
+                <button @click="sortBy('comments')" :class="{active: sortType === 'comments'}">最多评论</button>
+                <button @click="sortBy('favorites')" :class="{active: sortType === 'favorites'}">最多收藏</button>
+            </div>
+        </div>
+        <div class="col-lg-12 col-md-12 col-sm-12">
+            <div class="row">
+                <div v-if="page.length">
+                    <div v-for="video in page[currentPage]" :key="video.video_id">
+                        <article class="col-lg-3 col-md-6 col-sm-4">
+                            <div class="post post-medium">
+                                <div class="thumbr">    
+                                    <a class="post-thumb"
+                                       :href="'video.html?id=' + video.video_id">
+                                        <span class="play-btn-border" title="Play"><i
+                                                class="fa fa-play-circle headline-round" 
+                                                aria-hidden="true"></i></span>
+                                        <div class="cactus-note ct-time font-size-1">
+                                            <span>{{video.duration}}</span>
+                                        </div>
+                                        <img class="img-fixed-height" :src="video.image_path" 
+                                        :alt="video.video_name">
+                                    </a>
+                                </div>
+                                <div class="infor">
+                                    <h4>
+                                        <a class="title" :href="'video.html?id=' + video.video_id">{{video.video_name}}</a>
+                                    </h4>
+                                    <span class="posts-txt" title="Posts from Channel">
+                                        <i class="fa fa-thumbs-up" aria-hidden="true"></i>
+                                        {{video.likes}}
+                                    </span>
+                                    <div class="ratings">
+                                        <i v-for="starIndex in 5" :key="starIndex" :class="{
+                                           'fa': true,
+                                           'fa-star': video.grade >= starIndex,
+                                           'fa-star-o': video.grade < starIndex,
+                                           'fa-star-half-o': video.grade > (starIndex - 1) && video.grade < starIndex
+                                       }" aria-hidden="true">
+                                        </i>
+                                    </div>
+                                </div>
+                            </div>
+                        </article>
+                    </div>
+                </div>
+                <div v-else>
+                    <h2>正在加载，请稍等...</h2>
+                </div>
+                <div class="col-lg-12 col-md-12 col-sm-12 page-button-container">
+                    <button @click="prevPage">上一页</button>
+                    <button v-show="currentPage > 0" @click="prevPage">{{currentPage - 1}}</button>
+                    <button active>{{currentPage}}</button>
+                    <button v-show="currentPage < page.length - 1" @click="nextPage">{{currentPage + 1}}</button>
+                    <button @click="nextPage">下一页</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id="footer" class="container-fluid footer-background">
+		<div class="container">
+			<footer>
+				<div class="row copyright-bottom text-center">
+					<div class="col-md-12 text-center">
+						<a href="" class="footer-logo" title="Video Magazine Bootstrap HTML5 template">
+							<img src="img/footer-logo.png" class="img-fixed-width text-center pull-left"
+								alt="Video Magazine Bootstrap HTML5 template">
+						</a>
+						<div class="clearfix"></div>
+						<p>Copyright &copy; 2017.Company name All rights reserved.<a target="_blank"
+								href="http://sc.chinaz.com/moban/">&#x7F51;&#x9875;&#x6A21;&#x677F;</a></p>
+					</div>
+				</div>
+			</footer>
+		</div>
+	</div>
+    
+    <script src="js/jquery-1.12.1.min.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+    <script src="js/lity.js"></script>
+    <script src="/node_modules/vue/dist/vue.global.js"></script>
+    <script src="node_modules/axios/dist/axios.min.js"></script>
+    <script src="js/search.js"></script>
+</body>
+
+</html>

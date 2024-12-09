@@ -1,0 +1,124 @@
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+}
+
+.search-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 50px;
+}
+
+.search-box {
+    width: 60%;
+    padding: 10px;
+    font-size: 16px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+.search-button {
+    margin-left: 10px;
+    padding: 10px 20px;
+    font-size: 16px;
+    background-color: #00a1d6;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.additional-box {
+    width: 90%; /* 调整宽度 */
+    margin: 20px auto;
+    padding: 10px;
+    border: none !important; /* 确保边框被移除 */
+    border-radius: 4px;
+    text-align: center;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* 添加阴影 */
+    background-size: cover; /* 确保背景图片覆盖整个容器 */
+    background-position: center; /* 背景图片居中 */
+}
+
+.dropdown-content {
+    display: flex;
+    justify-content: space-around;
+}
+
+.dropdown-content button {
+    color: black;
+    padding: 10px;
+    text-decoration: none;
+    border: none;
+    background: none;
+    cursor: pointer;
+}
+
+.dropdown-content button:hover {
+    background-color: #d0d0d0;
+}   
+
+.page-button-container {
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+}
+
+.page-button-container button {
+    background-color: #007bff; /* 按钮背景色 */
+    color: white; /* 按钮文字颜色 */
+    border: none; /* 去掉边框 */
+    padding: 10px 20px; /* 内边距 */
+    margin: 0 5px; /* 按钮之间的间距 */
+    border-radius: 5px; /* 圆角 */
+    cursor: pointer; /* 鼠标悬停时显示手型 */
+    transition: background-color 0.3s ease; /* 背景色过渡效果 */
+}
+
+.page-button-container button:hover {
+    background-color: #0056b3; /* 悬停时的背景色 */
+}
+
+.page-button-container button[active] {
+    background-color: #0056b3; /* 当前页的背景色 */
+    font-weight: bold; /* 当前页的字体加粗 */
+}
+
+.sort-button-container {
+    display: flex;
+    justify-content: space-between; /* 按钮均匀分布 */
+    flex-wrap: wrap; /* 允许按钮换行 */
+    margin-top: 10px;
+    background-color: transparent !important; /* 强制透明背景色 */
+    padding: 10px; /* 容器内边距 */
+}
+
+.sort-button-container button {
+    flex: 1; /* 让按钮充满可用空间 */
+    background-color: #007bff; /* 按钮背景色 */
+    color: white; /* 按钮文字颜色 */
+    border: none; /* 去掉边框 */
+    padding: 10px 0; /* 内边距，垂直方向 */
+    margin: 5px; /* 按钮之间的间距 */
+    border-radius: 4px; /* 圆角 */
+    cursor: pointer; /* 鼠标悬停时显示手型 */
+    transition: background-color 0.3s ease; /* 背景色过渡效果 */
+    text-align: center; /* 文字居中 */
+}
+
+.sort-button-container button:hover {
+    background-color: #0056b3; /* 悬停时的背景色 */
+}
+
+select {
+    background-color: #007BFF; /* 蓝色背景 */
+    color: #ffffff; /* 白色文本 */
+    border: 1px solid #cccccc; /* 边框颜色 */
+    border-radius: 4px; /* 圆角 */
+    padding: 5px; /* 内边距 */
+    appearance: none; /* 移除浏览器默认样式 */
+    outline: none; /* 移除聚焦时的默认边框 */
+    margin-top: 20px; /* 向下移动20px */
+}
