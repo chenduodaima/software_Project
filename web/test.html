@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>自定义下拉菜单示例</title>
+    <link rel="stylesheet" href="css/test.css">
+</head>
+
+<body>
+    <!-- 自定义下拉菜单 -->
+    <div class="custom-dropdown">
+        <button class="dropdown-toggle">选择浏览器</button>
+        <div class="dropdown-menu" id="dropdownMenu">
+            <button class="dropdown-item" onclick="selectOption('Chrome')">Chrome</button>
+            <button class="dropdown-item" onclick="selectOption('Firefox')">Firefox</button>
+            <button class="dropdown-item" onclick="selectOption('Safari')">Safari</button>
+            <button class="dropdown-item" onclick="selectOption('Edge')">Edge</button>
+            <button class="dropdown-item" onclick="selectOption('Opera')">Opera</button>
+        </div>
+    </div>
+
+    <script>
+        function selectOption(value) {
+            document.querySelector('.dropdown-toggle').textContent = value;
+        }
+    </script>
+</body>
+
+</html>

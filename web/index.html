@@ -1,0 +1,694 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta name="description" content="">
+	<meta name="author" content="OrcasThemes">
+	<meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+	<title>主页</title>
+	<!-- Bootstrap core CSS -->
+	<link rel="stylesheet" href="css/bootstrap.css">
+	<!-- Custom styles for this template -->
+	<link rel="stylesheet" href="css/screen.css">
+	<link rel="stylesheet" href="css/animation.css">
+	<link rel="stylesheet" href="css/mymain.css">
+	<link rel="stylesheet" href="css/font-awesome.css">
+	<link rel="stylesheet" href="css/lity.css">
+	<link rel="stylesheet" href="css/index.css">
+</head>
+
+<body>
+	<!-- HOME 1 -->
+	<div id="home1" class="container-fluid standard-bg">
+		<!-- HEADER -->
+		<div class="row header-top">
+			<div class="col-lg-3 col-md-6 col-sm-5 col-xs-8">
+				<a class="main-logo" href="index.html"><img src="img/main-logo.png" class="main-logo img-responsive"
+						alt="Muvee Reviews" title="Muvee Reviews"></a>
+			</div>
+			<!-- 添加头像容器 -->
+			<div class="col-lg-9 col-md-6 col-sm-7 col-xs-4">
+				<div v-if="userinfo" class="avatar-container">
+					<img :src="userinfo.user_head_portrait_path" class="avatar" alt="用户头像"
+						onclick="window.location.href='personal.html'">
+					<div class="user-info-box">
+						<span class="user-info-text">欢迎回来，{{userinfo.name}}</span>
+					</div>
+					<div class="dropdown-menu" id="dropdownMenu">
+						<button type="button" class="dropdown-item" data-toggle="modal"
+							data-target="#insertvideo">上传视频</button>
+					</div>
+					<div id="insertvideo" class="modal fade in " role="dialog">
+						<div class="modal-dialog">
+							<div class="modal-content row">
+								<div class="modal-header custom-modal-header">
+									<button type="button" class="close" data-dismiss="modal">×</button>
+									<h2 class="icon"><i class="fa fa-television" aria-hidden="true"></i>上传视频</h2>
+								</div>
+								<div class="modal-body">
+									<form ref="videoInfoForm" id="video_info" name="info_form" class="form-inline"
+										enctype="multipart/form-data" method="post">
+										<div class="form-group col-sm-12">
+											<input type="text" class="form-control" name="video_name" id="video_name"
+												placeholder="视频名称">
+										</div>
+										<div class="form-group col-sm-12">
+											上传视频
+											<input type="file" class="form-control" name="video" id="video"
+												placeholder="视频链接">
+										</div>
+										<div class="form-group col-sm-12">
+											上传视频封面图片
+											<input type="file" class="form-control" name="image" id="image"
+												placeholder="视频图片">
+										</div>
+										<div class="form-group col-sm-12">
+											<input type="text" class="form-control" name="video_info" id="video_info"
+												placeholder="视频描述">
+										</div>
+										<div class="form-group col-sm-12">
+											<input type="text" name="video_type" id="video_type" value="视频类型: "
+												disabled>
+											<label>
+												<input type="radio" class="form-control" name="video_type_id"
+													onclick="updateVideoType(this.value)" value="生活">
+												生活
+											</label>
+											<label>
+												<input type="radio" class="form-control" name="video_type_id"
+													onclick="updateVideoType(this.value)" value="搞笑"> 搞笑
+											</label>
+											<label>
+												<input type="radio" class="form-control" name="video_type_id"
+													onclick="updateVideoType(this.value)" value="动漫"> 动漫
+											</label>
+											<label>
+												<input type="radio" class="form-control" name="video_type_id"
+													onclick="updateVideoType(this.value)" value="新闻"> 新闻
+											</label>
+											<label>
+												<input type="radio" class="form-control" name="video_type_id"
+													onclick="updateVideoType(this.value)" value="音乐"> 音乐
+											</label>
+											<label>
+												<input type="radio" class="form-control" name="video_type_id"
+													onclick="updateVideoType(this.value)" value="科技"> 科技
+											</label>
+											<label>
+												<input type="radio" class="form-control" name="video_type_id"
+													onclick="updateVideoType(this.value)" value="教育"> 教育
+											</label>
+										</div>
+										<div class="form-group col-sm-12">
+											<button class="subscribe-btn pull-right" type="submit"
+												title="Subscribe">上传</button>
+										</div>
+									</form>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<!-- MENU -->
+		<div class="row home-mega-menu ">
+			<div class="col-md-12">
+				<nav class="navbar navbar-default">
+					<div class="collapse navbar-collapse js-navbar-collapse megabg dropshd ">
+						<ul class="nav navbar-nav">
+							<li class="active"><a href="index.html">主页</a></li>
+							<li><a href="search.html">搜索</a></li>
+							<!-- <li><a href="tag.html">标签</a></li> -->
+							<li><a href="personal.html">个人中心</a></li>
+							<li><a href="login.html">登录</a></li>
+						</ul>
+						<div class="search-block">
+							<form @submit.prevent="redirectToSearch">
+								<input type="search" placeholder="Search" v-model="searchQuery">
+							</form>
+						</div>
+					</div>
+				</nav>
+			</div>
+		</div>
+		<!-- CORE -->
+		<div class="row">
+			<!-- SIDEBAR -->
+			<div class="col-lg-2 col-md-4 hidden-sm hidden-xs">
+				<aside class="dark-bg">
+					<article>
+						<h2 class="icon"><i class="fa fa-flash" aria-hidden="true"></i>导航</h2>
+						<ul class="sidebar-links">
+							<li class="fa fa-chevron-right"><a href="#most_heat">热门视频</a><span></span></li>
+							<li class="fa fa-chevron-right"><a href="#tabs">最新视频</a><span></span></li>
+							<li class="fa fa-chevron-right"><a href="#tabs">最多点赞</a><span></span></li>
+							<li class="fa fa-chevron-right"><a href="#tabs">最多观看</a><span></span></li>
+							<li class="fa fa-chevron-right"><a href="#most_dislikes">最多踩</a><span></span></li>
+							<li class="fa fa-chevron-right"><a href="#most_favorites">收藏最多</a><span></span></li>
+							<li class="fa fa-chevron-right"><a href="#most_comments">评论最多</a><span></span></li>
+						</ul>
+					</article>
+					<div class="clearfix spacer"></div>
+					<article>
+						<h2 class="icon"><i class="fa fa-gears" aria-hidden="true"></i>类别</h2>
+						<ul class="sidebar-links">
+							<li v-for="type in totalType" :key="type.type_id" class="fa fa-chevron-right" v-cloak><a
+									href="#">{{type.type_name}}</a><span>{{type.type_count}}</span>
+							</li>
+						</ul>
+					</article>
+					<div class="clearfix spacer"></div>
+				</aside>
+			</div>
+			<!-- HOME MAIN POSTS -->
+			<div class="col-lg-10 col-md-8">
+				<section id="most_heat">
+					<h2 class="icon"><i class="fa fa-television" aria-hidden="true"></i>热门视频</h2>
+					<div class="row">
+						<!-- ARTICLES -->
+						<div class="col-lg-11 col-md-12 col-sm-12">
+							<div v-if="most_heat_videos.length">
+								<div v-for="(video, index) in most_heat_videos" :key="video.video_id">
+									<article class="col-lg-3 col-md-6 col-sm-4">
+										<div class="post post-medium">
+											<div class="thumbr">
+												<a class="index === 0 ? 'afterglow' : '' post-thumb"
+													:href="'video.html?id=' + video.video_id">
+													<span class="play-btn-border" title="Play"><i
+															class="fa fa-play-circle headline-round"
+															aria-hidden="true"></i></span>
+													<div class="cactus-note ct-time font-size-1">
+														<span>{{video.duration}}</span>
+													</div>
+													<img class="img-fixed-height" :src="video.image_path"
+														:alt="video.video_name">
+												</a>
+											</div>
+											<div class="infor">
+												<h4>
+													<a class="title"
+														:href="'video.html?id=' + video.id">{{video.video_name}}</a>
+												</h4>
+												<span class="posts-txt" title="Posts from Channel">
+													<i class="fa fa-thumbs-up" aria-hidden="true"></i>
+													{{video.likes}}
+												</span>
+												<!-- <div class="ratings">
+													<i v-for="index in 5" :key="index" :class="{
+													   'fa': true,
+													   'fa-star': video.grade >= index,
+													   'fa-star-o': video.grade < index,
+													   'fa-star-half-o': video.grade > (index - 1) && video.grade < index
+												   }" aria-hidden="true">
+													</i>
+												</div> -->
+											</div>
+									</article>
+								</div>
+							</div>
+							<div v-else>
+								<h2>暂无视频</h2>
+							</div>
+						</div>
+					</div>
+				</section>
+			</div>
+		</div>
+	</div>
+	<!-- TABS -->
+	<div id="tabs" class="container-fluid featured-bg">
+		<div class="container-fluid">
+			<div class="col-md-12">
+				<!-- BOOTSTRAP TABS -->
+				<div class="head-section">
+					<ul class="nav nav-tabs text-center">
+						<li class="active">
+							<a data-toggle="tab" href="#tab1" @click="activeTab = 'newest'">
+								<h2 class="title">最新</h2>
+							</a>
+						</li>
+						<li>
+							<a data-toggle="tab" href="#tab2" @click="activeTab = 'most_likes'">
+								<h2 class="title">最多点赞</h2>
+							</a>
+						</li>
+						<li>
+							<a data-toggle="tab" href="#tab3" @click="activeTab = 'most_views'">
+								<h2 class="title">最多观看</h2>
+							</a>
+						</li>
+					</ul>
+				</div>
+				<div class="row auto-clear">
+					<!-- TAB CONTENTS -->
+					<div class="tab-content">
+						<div id="tab1" class="tab-pane fade in active">
+							<div v-if="currentVideos.length" class="row auto-clear">
+								<article v-for="(video, index) in currentVideos" :key="video.video_id"
+									class="col-lg-2 col-md-4 col-sm-4 post post-medium">
+									<div :class="index === 0 ? 'thumb' : 'thumbr'">
+										<a class="post-thumb" :href="'video.html?id=' + video.video_id">
+											<span class="play-btn-border" title="Play"><i
+													class="fa fa-play-circle headline-round"
+													aria-hidden="true"></i></span>
+											<div class="cactus-note ct-time font-size-1"><span>{{video.duration}}</span>
+											</div>
+											<img class="img-fixed-height" :src="video.image_path"
+												:alt="video.video_name">
+										</a>
+									</div>
+									<div class="infor">
+										<h4>
+											<a class="title"
+												:href="'video.html?id=' + video.video_id">{{video.video_name}}</a>
+										</h4>
+										<span class="posts-txt" title="Posts from Channel">
+											<i class="fa fa-thumbs-up" aria-hidden="true"></i>
+											{{video.likes}}
+										</span>
+										<!-- <div class="ratings">
+											<i v-for="index in 5" :key="index" :class="{
+											   'fa': true,
+											   'fa-star': video.grade >= index,
+											   'fa-star-o': video.grade < index,
+											   'fa-star-half-o': video.grade > (index - 1) && video.grade < index
+										   }" aria-hidden="true">
+											</i>
+										</div> -->
+									</div>
+								</article>
+							</div>
+							<div v-else>
+								<h2>暂无视频</h2>
+							</div>
+						</div>
+						<div id="tab2" class="tab-pane fade">
+							<div v-if="currentVideos.length" class="row auto-clear" v-cloak>
+								<article v-for="(video, index) in currentVideos" :key="video.video_id"
+									class="col-lg-2 col-md-4 col-sm-4 post post-medium">
+									<div :class="index === 0 ? 'thumb' : 'thumbr'">
+										<a class="post-thumb" :href="'video.html?id=' + video.video_id">
+											<span class="play-btn-border" title="Play"><i
+													class="fa fa-play-circle headline-round" aria-hidden="true"></i>
+											</span>
+											<div class="cactus-note ct-time font-size-1">
+												<span>{{video.duration}}</span>
+											</div>
+											<img class="img-fixed-height" :src="video.image_path"
+												:alt="video.video_name">
+										</a>
+									</div>
+									<div class="infor">
+										<h4>
+											<a class="title"
+												:href="'video.html?id=' + video.id">{{video.video_name}}</a>
+										</h4>
+										<span class="posts-txt" title="Posts from Channel">
+											<i class="fa fa-thumbs-up" aria-hidden="true"></i>
+											{{video.likes}}
+										</span>
+										<!-- <div class="ratings">
+											<i v-for="index in 5" :key="index" :class="{
+												'fa': true,
+												'fa-star': video.grade >= index,
+												'fa-star-o': video.grade < index,
+												'fa-star-half-o': video.grade > (index - 1) && video.grade < index
+											}" aria-hidden="true">
+											</i>
+										</div> -->
+									</div>
+								</article>
+							</div>
+							<div v-else>
+								<h2>暂无视频</h2>
+							</div>
+						</div>
+						<div id="tab3" class="tab-pane fade">
+							<div v-if="currentVideos.length" class="row auto-clear" v-cloak>
+								<article v-for="(video, index) in currentVideos" :key="video.video_id"
+									class="col-lg-2 col-md-4 col-sm-4 post post-medium">
+									<div :class="index === 0 ? 'thumb' : 'thumbr'">
+										<a class="post-thumb" :href="'video.html?id=' + video.video_id">
+											<span class="play-btn-border" title="Play"><i
+													class="fa fa-play-circle headline-round" aria-hidden="true"></i>
+											</span>
+											<div class="cactus-note ct-time font-size-1">
+												<span>{{video.duration}}</span>
+											</div>
+											<img class="img-fixed-height" :src="video.image_path"
+												:alt="video.video_name">
+										</a>
+									</div>
+									<div class="infor">
+										<h4>
+											<a class="title"
+												:href="'video.html?id=' + video.video_id">{{video.video_name}}</a>
+										</h4>
+										<span class="posts-txt" title="Posts from Channel">
+											<i class="fa fa-thumbs-up" aria-hidden="true"></i>
+											{{video.likes}}
+										</span>
+										<!-- <div class="ratings">
+											<i v-for="index in 5" :key="index" :class="{
+												'fa': true,
+												'fa-star': video.grade >= index,
+												'fa-star-o': video.grade < index,
+												'fa-star-half-o': video.grade > (index - 1) && video.grade < index
+											}" aria-hidden="true">
+											</i>
+										</div> -->
+									</div>
+								</article>
+							</div>
+							<div v-else>
+								<h2>暂无视频</h2>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- MAIN -->
+	<div id="main" class="container-fluid">
+		<div class="container-fluid">
+			<!-- SIDEBAR -->
+			<div class="col-lg-2 hidden-md hidden-sm hidden-xs">
+				<aside class="dark-bg sidebar">
+					<h2 class="icon" style="font-size: 20px;"><i class="fa fa-flag" aria-hidden="true"></i>最多点赞</h2>
+					<article class="col-md-12 post post-medium">
+						<div v-if="most_likes_video.length" class="row">
+							<div class="col-md-12 thumbr">
+								<div class="flag flag1"><i class="fa fa-star"></i></div>
+								<a class="post-thumb" :href="'video.html?id=' + most_likes_video[0].video_id">
+									<span class="play-btn-border" title="Play"><i
+											class="fa fa-play-circle headline-round" aria-hidden="true"></i></span>
+									<img class="img-responsive" :src="most_likes_video[0].image_path"
+										:alt="most_likes_video[0].video_name">
+								</a>
+							</div>
+							<div class="col-md-12 infor">
+								<h4>
+									<a class="title"
+										:href="'video.html?id=' + most_likes_video[0].video_id">{{most_likes_video[0].video_name}}</a>
+								</h4>
+								<span class="posts-txt" title="Posts from Channel"><i class="fa fa-thumbs-up"
+										aria-hidden="true"></i>{{most_likes_video[0].likes}}</span>
+								<!-- <div class="ratings">
+									<i v-for="index in 5" :key="index" :class="{
+										'fa': true,
+										'fa-star': daily_recommend_video[0].grade >= index,
+										'fa-star-o': daily_recommend_video[0].grade < index,
+										'fa-star-half-o': daily_recommend_video[0].grade > (index - 1) && daily_recommend_video[0].grade < index
+									}" aria-hidden="true">
+									</i>
+								</div> -->
+							</div>
+						</div>
+						<div v-else>
+							<h2>暂无视频</h2>
+						</div>
+					</article>
+					<div class="clearfix spacer"></div>
+					<div class="clearfix spacer"></div>
+					<!-- <article>
+						<h2 class="icon"><i class="fa fa-tag" aria-hidden="true"></i>标签</h2>
+						<ul class="footer-tags">
+							<li v-for="tag in tags" :key="tag.tag_id"><a href="#">{{tag.tag_name}}</a></li>
+						</ul>
+					</article> -->
+					<div class="clearfix spacer"></div>
+					<article class="reviews">
+						<h2 class="icon" style="font-size: 20px;"><i class="fa fa-star" aria-hidden="true"></i>最高播放</h2>
+						<div v-if="most_views_of_all_video.length" class="post post-medium">
+							<a class="thumbr post-thumb" :href="'video.html?id=' + most_views_of_all_video[0].video_id">
+								<!-- <span class="review-number">{{most_views_of_all_video[0].grade}}</span> -->
+								<img class="img-responsive" :src="most_views_of_all_video[0].image_path"
+									:alt="most_views_of_all_video[0].video_name">
+							</a>
+							<div class="infor">
+								<h4>
+									<a class="title"
+										:href="'video.html?id=' + most_views_of_all_video[0].video_id">{{most_views_of_all_video[0].video_name}}</a>
+								</h4>
+								<span class="posts-txt" title="Posts from Channel"><i class="fa fa-thumbs-up"
+										aria-hidden="true"></i>{{most_views_of_all_video[0].likes}}</span>
+								<!-- <div class="ratings">
+									<i v-for="index in 5" :key="index" :class="{
+										'fa': true,
+										'fa-star': most_views_of_all_video[0].grade >= index,
+										'fa-star-o': most_views_of_all_video[0].grade < index,
+										'fa-star-half-o': most_views_of_all_video[0].grade > (index - 1) && most_views_of_all_video[0].grade < index
+									}" aria-hidden="true">
+									</i>
+								</div> -->
+							</div>
+						</div>
+						<div v-else>
+							<h2>暂无视频</h2>
+						</div>
+					</article>
+				</aside>
+			</div>
+			<!-- MAIN CONTENT -->
+			<div class="col-lg-10 col-md-12">
+				<!-- EDITORS CHOICE -->
+				<section id="most_dislikes">
+					<h2 class="icon"><i class="fa fa-trophy" aria-hidden="true"></i>最多踩</h2>
+					<div class="row auto-clear">
+						<!-- MAIN POST -->
+						<div class="col-lg-6 col-md-12 col-sm-12">
+							<!-- POST L size -->
+							<article class="post post-medium main-large-post">
+								<div v-if="most_dislikes_video.length" class="thumbr">
+									<div class="flag flag1"><i class="fa fa-star"></i></div>
+									<a class="post-thumb" :href="'video.html?id=' + most_dislikes_video[0].video_id">
+										<span class="play-btn-border" title="Play"><i
+												class="fa fa-play-circle headline-round" aria-hidden="true"></i></span>
+										<img class="img-square-height" :src="most_dislikes_video[0].image_path"
+											:alt="most_dislikes_video[0].video_name">
+									</a>
+									<div class="infor">
+										<h4>
+											<a class="title"
+												:href="'video.html?id=' + most_dislikes_video[0].video_id">{{most_dislikes_video[0].video_name}}</a>
+										</h4>
+										<span class="posts-txt" title="Posts from Channel"><i class="fa fa-thumbs-up"
+												aria-hidden="true"></i>{{most_dislikes_video[0].likes}}</span>
+										<!-- <div class="ratings">
+											<i v-for="index in 5" :key="index" :class="{
+												'fa': true,
+												'fa-star': editor_recommend_video[0].grade >= index,
+												'fa-star-o': editor_recommend_video[0].grade < index,
+												'fa-star-half-o': editor_recommend_video[0].grade > (index - 1) && editor_recommend_video[0].grade < index
+											}" aria-hidden="true">
+											</i>
+										</div> -->
+									</div>
+								</div>
+								<div v-else>
+									<h2>暂无视频</h2>
+								</div>
+							</article>
+						</div>
+						<!-- SMALL POSTS -->
+						<div class="col-lg-6 col-md-12 col-sm-12 editor-choice-small">
+							<div v-if="most_dislikes_video.length">
+								<div class="row auto-clear">
+									<article v-for="(video, index) in most_dislikes_video.slice(1, 3)" :key="video.id"
+										class="col-sm-6 post post-medium small-post">
+										<div class="thumbr">
+											<div class="flag flag1"><i class="fa fa-star"></i></div>
+											<a class="post-thumb" :href="'video.html?id=' + video.video_id">
+												<span class="play-btn-border" title="Play">
+													<i class="fa fa-play-circle headline-round" aria-hidden="true"></i>
+												</span>
+												<img class="img-square-height" :src="video.image_path"
+													:alt="video.video_name">
+											</a>
+											<div class="infor">
+												<h4>
+													<a class="title"
+														:href="'video.html?id=' + video.video_id">{{video.video_name}}</a>
+												</h4>
+												<span class="posts-txt" title="Posts from Channel">
+													<i class="fa fa-thumbs-up" aria-hidden="true"></i>
+													{{video.likes}}
+												</span>
+												<!-- <div class="ratings">
+													<i v-for="index in 5" :key="index" :class="{
+														'fa': true,
+														'fa-star': video.grade >= index,
+														'fa-star-o': video.grade < index,
+														'fa-star-half-o': video.grade > (index - 1) && video.grade < index
+													}" aria-hidden="true">
+													</i>
+												</div> -->
+											</div>
+										</div>
+									</article>
+								</div>
+								<div class="row auto-clear">
+									<article v-for="(video, index) in most_dislikes_video.slice(3, 5)"
+										:key="video.video_id" class="col-sm-6 post post-medium small-post">
+										<div class="thumbr">
+											<div class="flag flag1"><i class="fa fa-star"></i></div>
+											<a class="post-thumb" :href="'video.html?id=' + video.video_id">
+												<span class="play-btn-border" title="Play">
+													<i class="fa fa-play-circle headline-round" aria-hidden="true"></i>
+												</span>
+												<img class="img-square-height" :src="video.image_path"
+													:alt="video.video_name">
+											</a>
+											<div class="infor">
+												<h4>
+													<a class="title"
+														:href="'video.html?id=' + video.video_id">{{video.video_name}}</a>
+												</h4>
+												<span class="posts-txt" title="Posts from Channel">
+													<i class="fa fa-thumbs-up" aria-hidden="true"></i>
+													{{video.likes}}
+												</span>
+												<!-- <div class="ratings">
+													<i v-for="index in 5" :key="index" :class="{
+														'fa': true,
+														'fa-star': video.grade >= index,
+														'fa-star-o': video.grade < index,
+														'fa-star-half-o': video.grade > (index - 1) && video.grade < index
+													}" aria-hidden="true">
+													</i>
+												</div> -->
+											</div>
+										</div>
+									</article>
+								</div>
+							</div>
+							<div v-else>
+								<h2>暂无视频</h2>
+							</div>
+						</div>
+					</div>
+				</section>
+				<div class="clearfix"></div>
+				<section id="most_favorites">
+					<h2 class="icon"><i class="fa fa-eye" aria-hidden="true"></i>收藏最多</h2>
+					<div class="row auto-clear">
+						<article v-if="most_favorite_videos.length" v-for="video in most_favorite_videos"
+							:key="video.video_id" class="col-lg-2 col-md-4 col-sm-6 post post-medium">
+							<div class="thumbr">
+								<a class="post-thumb" :href="'video.html?id=' + video.video_id">
+									<span class="play-btn-border" title="Play">
+										<i class="fa fa-play-circle headline-round" aria-hidden="true"></i>
+									</span>
+									<img class="img-fixed-height" :src="video.image_path" :alt="video.video_name">
+								</a>
+							</div>
+							<div class="infor">
+								<h4>
+									<a class="title" :href="'video.html?id=' + video.video_id">{{video.video_name}}</a>
+								</h4>
+								<span class="posts-txt" title="Posts from Channel">
+									<i class="fa fa-thumbs-up" aria-hidden="true"></i>{{video.likes}}
+								</span>
+								<!-- <div class="ratings">
+									<i v-for="index in 5" :key="index" :class="{
+										'fa': true,
+										'fa-star': video.grade >= index,
+										'fa-star-o': video.grade < index,
+										'fa-star-half-o': video.grade > (index - 1) && video.grade < index
+									}" aria-hidden="true">
+									</i>
+								</div> -->
+							</div>
+						</article>
+						<div v-else>
+							<h2>暂无视频</h2>
+						</div>
+					</div>
+				</section>
+				<div class="clearfix spacer"></div>
+				<!-- REVIEWS -->
+				<section id="most_comments">
+					<div id="myCarousel2" class="carousel slide" data-ride="carousel">
+						<h2 class="icon"><i class="fa fa-star" aria-hidden="true"></i>评论最多</h2>
+						<div class="carousel-control-box">
+							<a class="left carousel-control" href="#myCarousel2" role="button" data-slide="prev"><i
+									class="fa fa-chevron-left" aria-hidden="true"></i></a>
+							<a class="right carousel-control" href="#myCarousel2" role="button" data-slide="next"><i
+									class="fa fa-chevron-right" aria-hidden="true"></i></a>
+						</div>
+						<div v-if="commentedVideoChunks.length" class="carousel-inner" role="listbox">
+							<div v-for="(chunk, index) in commentedVideoChunks" :key="index"
+								:class="['item', index === 0 ? 'active' : '']">
+								<div class="row auto-clear">
+									<article v-for="video in chunk" :key="video.id"
+										class="reviews col-lg-2 col-md-4 col-sm-4">
+										<div class="post post-medium">
+											<a class="thumbr post-thumb" :href="'video.html?id=' + video.video_id">
+												<!-- <span class="review-number">{{video.grade}}</span> -->
+												<img :src="video.image_path" class="review img-fixed-height"
+													:alt="video.video_name">
+											</a>
+											<div class="infor">
+												<h4>
+													<a class="title"
+														:href="'video.html?id=' + video.video_id">{{video.video_name}}</a>
+												</h4>
+												<span class="posts-txt" title="Posts from Channel">
+													<i class="fa fa-thumbs-up" aria-hidden="true"></i>
+													{{video.likes}}
+												</span>
+												<!-- <div class="ratings">
+													<i v-for="index in 5" :key="index" :class="{
+														   'fa': true,
+														   'fa-star': video.grade >= index,
+														   'fa-star-o': video.grade < index,
+														   'fa-star-half-o': video.grade > (index - 1) && video.grade < index
+													   }" aria-hidden="true">
+													</i>
+												</div> -->
+											</div>
+										</div>
+									</article>
+								</div>
+							</div>
+						</div>
+						<div v-else>
+							<h2>暂无视频</h2>
+						</div>
+					</div>
+				</section>
+			</div>
+		</div>
+		<div class="clearfix"></div>
+	</div>
+	<div id="footer" class="container-fluid footer-background">
+		<div class="container">
+			<footer>
+				<div class="row copyright-bottom text-center">
+					<div class="col-md-12 text-center">
+						<a href="" class="footer-logo" title="Video Magazine Bootstrap HTML5 template">
+							<img src="img/footer-logo.png" class="img-fixed-width text-center pull-left"
+								alt="Video Magazine Bootstrap HTML5 template">
+						</a>
+						<div class="clearfix"></div>
+						<p>Copyright &copy; 2017.Company name All rights reserved.<a target="_blank"
+								href="http://sc.chinaz.com/moban/">&#x7F51;&#x9875;&#x6A21;&#x677F;</a></p>
+
+					</div>
+				</div>
+			</footer>
+		</div>
+	</div>
+	<script src="js/jquery-1.12.1.min.js"></script>
+	<script src="js/bootstrap.min.js"></script>
+	<script src="js/lity.js"></script>
+	<script src="/node_modules/vue/dist/vue.global.js"></script>
+	<script src="node_modules/axios/dist/axios.min.js"></script>
+	<script src="js/index.js" defer></script>
+</body>
+
+</html>

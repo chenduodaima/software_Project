@@ -1,0 +1,311 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+
+<head>
+   <meta charset="utf-8">
+   <meta name="viewport" content="width=device-width, initial-scale=1">
+   <meta name="description" content="">
+   <meta name="author" content="OrcasThemes">
+   <title>视频播放</title>
+   <link rel="stylesheet" href="css/bootstrap.css">
+   <link rel="stylesheet" href="css/screen.css">
+   <link rel="stylesheet" href="css/animation.css">
+   <link rel="stylesheet" href="css/font-awesome.css">
+   <link rel="stylesheet" href="css/lity.css">
+   <link rel="stylesheet" href="css/mymain.css">
+   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.3/css/font-awesome.min.css">
+   <link rel="stylesheet" href="css/video.css">
+</head>
+
+<body>
+   <!-- SINGLE VIDEO -->
+   <div id="myapp" class="container-fluid standard-bg">
+      <div class="row header-top">
+         <div class="col-lg-3 col-md-6 col-sm-5 col-xs-8">
+            <a class="main-logo" href="index.html"><img src="img/main-logo.png" class="main-logo img-responsive"
+                  alt="Muvee Reviews" title="Muvee Reviews"></a>
+         </div>
+         <!-- 添加头像容器 -->
+         <div class="col-lg-9 col-md-6 col-sm-7 col-xs-4">
+            <div v-if="userinfo" class="avatar-container">
+               <img :src="userinfo.user_head_portrait_path" class="avatar" alt="用户头像"
+                  onclick="window.location.href='personal.html'">
+               <div class="user-info-box">
+                  <span class="user-info-text">欢迎回来，{{userinfo.username}}</span>
+               </div>
+            </div>
+         </div>
+      </div>
+      <div class="row home-mega-menu ">
+         <div class="col-md-12">
+            <nav class="navbar navbar-default">
+               <div class="navbar-header">
+                  <button class="navbar-toggle" type="button" data-toggle="collapse" data-target=".js-navbar-collapse">
+                     <span class="sr-only">Toggle navigation</span>
+                     <span class="icon-bar"></span>
+                     <span class="icon-bar"></span>
+                     <span class="icon-bar"></span>
+                  </button>
+               </div>
+               <div class="collapse navbar-collapse js-navbar-collapse megabg dropshd ">
+                  <ul class="nav navbar-nav">
+                     <li><a href="index.html">主页</a></li>
+                     <li><a href="search.html">搜索</a></li>
+                     <!-- <li><a href="tag.html">标签</a></li> -->
+                     <li><a href="personal.html">个人中心</a></li>
+                     <li><a href="login.html">登录</a></li>
+                  </ul>
+
+                  <div class="search-block">
+                     <form @submit.prevent="redirectToSearch">
+                        <input type="search" placeholder="Search" v-model="searchQuery">
+                     </form>
+                  </div>
+               </div>
+               <!-- /.nav-collapse -->
+            </nav>
+         </div>
+      </div>
+      <div class="row">
+         <!-- SIDEBAR -->
+         <div class="col-lg-2 col-md-4 hidden-sm hidden-xs">
+         </div>
+         <!-- SINGLE VIDEO -->
+         <div id="single-video-wrapper" class="col-lg-10 col-md-8">
+            <div class="row">
+               <!-- VIDEO SINGLE POST -->
+               <div class="col-lg-8 col-md-12 col-sm-12">
+                  <!-- POST L size -->
+                  <article class="post-video">
+                     <!-- VIDEO INFO -->
+                     <div class="video-info">
+                        <!-- 16:9 aspect ratio -->
+                        <div class="embed-responsive embed-responsive-16by9 video-embed-box">
+                           <iframe v-if="video" :src="video.video_path" class="embed-responsive-item"></iframe>
+                           <iframe v-else src="#" class="embed-responsive-item"></iframe>
+                        </div>
+                        <h2 class="title main-head-title">{{video.video_name}}</h2>
+                        <div class="metabox">
+                           <span v-if="user_video_relation" class="meta-i"
+                              @click="update_user_video_relation('is_liked')">
+                              <i :class="['fa', user_video_relation.is_liked === '1' ? 'fa-thumbs-up' : 'fa-thumbs-o-up']"
+                                 aria-hidden="true" :active="user_video_relation.is_liked"></i>
+                              {{ video.likes }}
+                           </span>
+                           <span v-else class="meta-i">
+                              <i class="fa fa-thumbs-o-up" aria-hidden="true"></i>
+                              0
+                           </span>
+                           <span v-if="user_video_relation" class="meta-i"
+                              @click="update_user_video_relation('dislike')">
+                              <i :class="['fa', user_video_relation.dislike === '1' ? 'fa-thumbs-down' : 'fa-thumbs-o-down']"
+                                 aria-hidden="true" :active="user_video_relation.dislike"></i>
+                              {{ video.dislikes }}
+                           </span>
+                           <span v-else class="meta-i">
+                              <i class="fa fa-thumbs-o-up" aria-hidden="true"></i>
+                              0
+                           </span>
+                           <span v-if="video_user_info" class="meta-i">
+                              <i class="fa fa-user"></i><a href="#" class="author"
+                                 title="John Doe">{{video_user_info.name}}</a>
+                           </span>
+                           <span v-else class="meta-i">
+                              <i class="fa fa-user"></i>
+                              <a href="#" class="author" title="John Doe">暂无用户</a>
+                           </span>
+                           <span v-if="video" class="meta-i">
+                              <i class="fa fa-clock-o"></i>{{video.release_time}}
+                           </span>
+                           <span v-else class="meta-i">
+                              <i class="fa fa-clock-o"></i>暂无发布时间
+                           </span>
+                           <span v-if="video" class="meta-i">
+                              <i class="fa fa-eye"></i>{{video.views}} views
+                           </span>
+                           <span v-else class="meta-i">
+                              <i class="fa fa-eye"></i>0 views
+                           </span>
+                           <!-- 收藏 -->
+                           <span v-if="video" class="meta-i" @click="update_user_video_relation('favorite')">
+                              <i :class="['fa', user_video_relation.favorite === '1' ? 'fa-star' : 'fa-star-o']"
+                                 aria-hidden="true" :active="user_video_relation.favorite"></i>
+                              {{video.favorites}} 收藏
+                           </span>
+                           <span v-else class="meta-i">
+                              <i class="fa fa-star"></i>0 收藏
+                           </span>
+                           <!-- <div v-if="video" class="ratings">
+                              <i v-for="index in 5" :key="index" :class="{
+                                    'fa': true,
+                                    'fa-star': video.grade >= index,
+                                    'fa-star-o': video.grade < index,
+                                    'fa-star-half-o': video.grade > (index - 1) && video.grade < index
+                                 }" aria-hidden="true">
+                              </i>
+                           </div> -->
+                           <span v-else class="meta-i">
+                              <i class="fa fa-star"></i>0 评分
+                           </span>
+                        </div>
+                        <ul class="footer-tags" v-if="tags">
+                           <li v-for="tag in tags">
+                              <a href="#">{{tag.tag_name}}</a>
+                           </li>
+                        </ul>
+                        <ul class="footer-tags" v-else>
+                           <li><a href="#">没有标签</a></li>
+                        </ul>
+                     </div>
+                     <div class="clearfix spacer"></div>
+                     <!-- DETAILS -->
+                     <div class="video-content">
+                        <h2 class="title main-head-title">视频简介</h2>
+                        <p>
+                           {{video.video_info}}
+                        </p>
+                     </div>
+                     <div class="clearfix spacer"></div>
+                     <!-- MAIN ROLL ADVERTISE BOX -->
+                  </article>
+
+                  <!-- COMMENTS -->
+                  <section id="comments">
+                     <h2 class="title">评论</h2>
+                     <div class="widget-area">
+                        <div class="status-upload">
+                           <form>
+                              <textarea id="comment_textarea" v-model="current_comment"
+                                 placeholder="请在这输入评论"></textarea>
+                              <div class="comment-box-control">
+                                 <!-- <ul>
+                                    <li><a title="" data-placement="bottom" data-original-title="Video"><i
+                                             class="fa fa-video-camera"></i></a></li>
+                                    <li><a title="" data-placement="bottom" data-original-title="Picture"><i
+                                             class="fa fa-picture-o"></i></a></li>
+                                    <li><a title="" data-placement="bottom" data-original-title="Smile"><i
+                                             class="fa fa-smile-o"></i></a></li>
+                                 </ul> -->
+                                 <button type="submit" class="btn pull-right" @click.prevent="send_comment"><i
+                                       class="fa fa-share"></i> 发送 </button>
+                              </div>
+                           </form>
+                        </div><!-- Status Upload  -->
+                     </div><!-- Widget Area -->
+                     <div v-if="comment_block.length">
+                        <div class="row comment-posts"
+                           v-for="(comment, index) in comment_block[current_comment_block_index]" :key="index">
+                           <div class="col-sm-1">
+                              <div class="thumbnail">
+                                 <img class="img-responsive user-photo" :src="comment.user_info.user_head_portrait_path"
+                                    alt="Comment User Avatar">
+                              </div>
+                           </div>
+
+                           <div class="col-sm-11">
+                              <div class="panel panel-default">
+                                 <div class="panel-heading">
+                                    <strong>{{comment.user_info.name}}</strong> <span
+                                       class="pull-right">{{comment.comment.comment_time}}</span>
+                                 </div>
+                                 <div class="panel-body">
+                                    {{comment.comment.comment_text}}
+                                 </div>
+                              </div>
+                           </div>
+                        </div>
+                     </div>
+                     <div v-else>
+                        <p>没有评论</p>
+                     </div>
+                     <div class="col-lg-12 col-md-12 col-sm-12 page-button-container">
+                        <button @click="prevBlock">上一页</button>
+                        <button v-show="current_comment_block_index > 0"
+                           @click="prevBlock">{{current_comment_block_index - 1}}</button>
+                        <button active>{{current_comment_block_index}}</button>
+                        <button v-show="current_comment_block_index < comment_block.length - 1"
+                           @click="nextBlock">{{current_comment_block_index + 1}}</button>
+                        <button @click="nextBlock">下一页</button>
+                     </div>
+                  </section>
+               </div>
+               <div class="clearfix spacer">
+               </div>
+               <div class="row">
+                  <!-- RELATED VIDEOS -->
+                  <div class="col-lg-12 col-md-12 col-sm-12 related-videos">
+                     <h2 class="icon"><i class="fa fa-trophy" aria-hidden="true"></i>相似的视频</h2>
+                     <div v-if="similar_video.length">
+                        <div class="row auto-clear">
+                           <article class="col-lg-2 col-md-6 col-sm-4" v-for="video in similar_video">
+                              <!-- POST L size -->
+                              <div class="post post-medium">
+                                 <div class="thumbr">
+                                    <a class="post-thumb" :href="`video.html?id=${video.video_id}`">
+                                       <span class="play-btn-border" title="Play"><i
+                                             class="fa fa-play-circle headline-round" aria-hidden="true"></i></span>
+                                       <div class="cactus-note ct-time font-size-1"><span>{{video.duration}}</span>
+                                       </div>
+                                       <img class="img-fixed-height img-responsive" :src="video.image_path" alt="#">
+                                    </a>
+                                 </div>
+                                 <div class="infor">
+                                    <h4>
+                                       <a class="title" href="#">{{video.video_name}}</a>
+                                    </h4>
+                                    <span class="posts-txt" title="Posts from Channel"><i class="fa fa-thumbs-up"
+                                          aria-hidden="true"></i>{{video.likes}}</span>
+                                    <!-- <div class="ratings">
+                                       <i v-for="index in 5" :key="index" :class="{
+                                          'fa': true,
+                                          'fa-star': video.grade >= index,
+                                          'fa-star-o': video.grade < index,
+                                          'fa-star-half-o': video.grade > (index - 1) && video.grade < index
+                                       }" aria-hidden="true">
+                                       </i>
+                                    </div> -->
+                                 </div>
+                              </div>
+                           </article>
+                        </div>
+                     </div>
+                     <div v-else>
+                        <p>没有相似视频</p>
+                     </div>
+                     <div class="clearfix spacer"></div>
+                  </div>
+               </div>
+            </div>
+         </div>
+      </div>
+      <div id="bottom-banner" class="container text-center">
+         <!-- BOTTOM ADVERTISE BOX -->
+
+      </div>
+   </div>
+   <div id="footer" class="container-fluid footer-background">
+      <div class="container">
+         <footer>
+            <div class="row copyright-bottom text-center">
+               <div class="col-md-12 text-center">
+                  <a href="" class="footer-logo" title="Video Magazine Bootstrap HTML5 template">
+                     <img src="img/footer-logo.png" class="img-fixed-width text-center pull-left"
+                        alt="Video Magazine Bootstrap HTML5 template">
+                  </a>
+                  <div class="clearfix"></div>
+                  <p>Copyright &copy; 2017.Company name All rights reserved.<a target="_blank"
+                        href="http://sc.chinaz.com/moban/">&#x7F51;&#x9875;&#x6A21;&#x677F;</a></p>
+               </div>
+            </div>
+         </footer>
+      </div>
+   </div>
+   <script src="js/jquery-1.12.1.min.js"></script>
+   <script src="js/bootstrap.min.js"></script>
+   <script src="js/lity.js"></script>
+   <script src="/node_modules/vue/dist/vue.global.prod.js"></script>
+   <script src="node_modules/axios/dist/axios.min.js"></script>
+   <script src="js/video.js"></script>
+</body>
+
+</html>

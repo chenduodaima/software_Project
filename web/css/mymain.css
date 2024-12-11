@@ -1,0 +1,58 @@
+/* 头像容器 */
+.avatar-container {
+    position: absolute;
+    right: 180px;    
+    top: 12px;
+    display: flex;
+    align-items: center;
+}
+
+/* 圆形头像 */
+.avatar {
+    width: 55px;    
+    height: 55px;   
+    border-radius: 50%;
+    border: 2px solid #fff;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+    z-index: 2;
+}
+
+.avatar:hover {
+    transform: scale(1.1);
+    box-shadow: 0 4px 8px rgba(0,0,0,0.3);
+}
+
+/* 信息框 */
+.user-info-box {
+    height: 55px;
+    background: rgba(255, 255, 255, 0.9);
+    margin-left: -20px;
+    padding: 0 20px 0 45px;
+    border-radius: 0 28px 28px 0;
+    display: flex;
+    align-items: center;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    position: absolute;
+    left: 35px;
+    opacity: 0;
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: all 0.3s ease;
+    pointer-events: none;
+}
+
+/* 悬停时显示信息框 */
+.avatar-container:hover .user-info-box {
+    opacity: 1;
+    transform: scaleX(1);
+}
+
+.user-info-text {
+    color: #333;
+    font-size: 16px;
+    font-weight: 500;
+    white-space: nowrap;
+    margin-left: 10px;
+}

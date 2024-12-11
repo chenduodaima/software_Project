@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="OrcasThemes">
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+    <title>个人中心</title>
+    <!-- Bootstrap core CSS -->
+    <link href="css/bootstrap.css" rel="stylesheet">
+    <!-- Custom styles for this template -->
+    <link rel="stylesheet" href="css/screen.css">
+    <link rel="stylesheet" href="css/animation.css">
+    <link rel="stylesheet" href="css/font-awesome.css">
+    <link rel="stylesheet" href="css/personal.css">
+</head>
+
+<body>
+    <div id="personal">
+        <div class="container-fluid">
+            <div class="col-lg-3 col-md-6 col-sm-5 col-xs-8">
+                <a class="main-logo" href="index.html"><img src="img/main-logo.png" class="main-logo img-responsive"
+                        alt="Muvee Reviews" title="Muvee Reviews"></a>
+            </div>
+        </div>
+        <div class="personal-container">
+            <div class="left-nav">
+                <div v-if="userinfo.user_head_portrait_path != null" class="user-info">
+                    <img :src=userinfo.user_head_portrait_path class="avatar-large" alt="用户头像">
+                    <h3 class="username">{{ userinfo.name}}</h3>
+                </div>
+                <div v-else>
+                    <img src="img/backgrounds/default.jpg" class="avatar-large" alt="用户头像">
+                    <h3 class="username">辰嘉日</h3>
+                </div>
+                <ul class="nav-list">
+                    <li class="nav-item" :class="{ active: activePage === 'profile' }" data-page="profile"
+                        @click="handleNavClick('profile')">
+                        <i class="fa fa-user"></i>
+                        <span>个人资料</span>
+                    </li>
+                    <li class="nav-item" :class="{ active: activePage === 'security' }" data-page="security"
+                        @click="handleNavClick('security')">
+                        <i class="fa fa-lock"></i>
+                        <span>账号安全</span>
+                    </li>
+                    <li class="nav-item" :class="{ active: activePage === 'video' }" data-page="video"
+                        @click="handleNavClick('video')">
+                        <i class="fa fa-tv"></i>
+                        <span>视频管理</span>
+                    </li>
+                    <li class="nav-item" :class="{ active: activePage === 'favorite' }" data-page="favorite"
+                        @click="handleNavClick('favorite')">
+                        <i class="fa fa-star"></i>
+                        <span>你的收藏</span>
+                    </li>
+                    <li class="nav-item" :class="{ active: activePage === 'logout' }" data-page="logout"
+                        @click="handleNavClick('logout')">
+                        <i class="fa fa-sign-out"></i>
+                        <span>退出登录</span>
+                    </li>
+                </ul>
+            </div>
+
+            <!-- 右侧内容区域 -->
+            <div class="right-content">
+                <!-- 个人资料页面 -->
+                <div class="content-page" id="profile-page" :class="{ active: activePage === 'profile' }">
+                    <h2>个人资料</h2>
+                    <div class="form-container">
+                        <!-- 头像上传部分 -->
+                        <!-- 头像上传部分 -->
+                        <div class="form-group">
+                            <div v-if="userinfo.user_head_portrait_path != null" class="avatar-upload">
+                                <img :src="userinfo.user_head_portrait_path" alt="当前头像">
+                                <button class="btn btn-primary" @click="triggerFileSelect">更换头像</button>
+                                <input type="file" id="avatarUpload" @change="handleFileChange" accept="image/*"
+                                    style="display: none;">
+                                <div v-if="previewUrl" class="avatar">
+                                    <img :src="previewUrl" alt="头像预览" class="avatar-preview">
+                                </div>
+                                <!-- 只有在选择了文件后才显示上传按钮 -->
+                                <div v-if="selectedFile">
+                                    <button class="btn btn-success" @click="uploadHeadPortrait" style="margin-right: 10px;">确定</button>
+                                    <button class="btn btn-danger" @click="cancelUpload">取消</button>
+                                </div>
+                            </div>
+                            <div v-else class="avatar-upload">
+                                <img src="img/backgrounds/default.jpg" alt="默认头像">
+                                <button class="btn btn-primary">更换头像</button>
+                            </div>
+                        </div>
+
+                        <!-- 修改用户名部分 -->
+                        <div class="form-group">
+                            <label>用户名</label>
+                            <div class="edit-group">
+                                <input type="text" class="form-control" v-model="preName" :placeholder="userinfo.name"
+                                    :readonly="!isEditing">
+                                <button class="edit-btn" @click="toggleEdit">
+                                    <i class="fa fa-pencil"></i>
+                                    修改
+                                </button>
+                                <button class="edit-btn" @click="endEditName" v-show="isEditing">
+                                    <i class="fa fa-save"></i>
+                                    保存
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 账号安全页面 -->
+                <div class="content-page" id="security-page" :class="{ active: activePage === 'security' }">
+                    <h2>账号安全</h2>
+                    <div class="form-container">
+                        <div class="form-group">
+                            <label>新账号</label>
+                            <input type="text" class="form-control" v-model="newUserName"
+                                :placeholder="userinfo.username" :readonly="!isEditing">
+                        </div>
+                        <div class="form-group">
+                            <label>新密码</label>
+                            <input type="password" class="form-control" v-model="newPassword" :readonly="!isEditing">
+                        </div>
+                        <div class="form-group">
+                            <label>确认新密码</label>
+                            <input type="password" class="form-control" v-model="againPassword" :readonly="!isEditing">
+                        </div>
+                        <button class="btn btn-success save-btn" @click="toggleEdit">修改密码</button><br>
+                        <button class="btn btn-success save-btn" @click="endEditUserNameAndPassword"
+                            v-show="isEditing">保存</button>
+                    </div>
+                </div>
+
+                <!-- 视频管理页面 -->
+                <div class="content-page" id="video-page" :class="{ active: activePage === 'video' }">
+                    <div class="header">
+                        <h2>视频管理</h2>
+                        <button class="edit-video-btn" @click="toggleEditMode">编辑视频</button>
+                    </div>
+                    <div class="form-container">
+                        <div class="form-group">
+                            <label>视频</label>
+                            <div v-if="videoList.length > 0" class="video-list">
+                                <div v-for="video in videoList" :key="video.video_id" class="video-item">
+                                    <article>
+                                        <div class="post post-medium">
+                                            <div class="thumbr">
+                                                <a class="post-thumb" :href="'video.html?id=' + video.video_id">
+                                                    <span class="play-btn-border" title="Play"><i
+                                                            class="fa fa-play-circle headline-round"
+                                                            aria-hidden="true"></i></span>
+                                                    <img class="img-fixed-height" :src="video.image_path"
+                                                        :alt="video.video_name">
+                                                </a>
+                                                <h4>
+                                                    <a class="title"
+                                                        :href="'video.html?id=' + video.video_id">{{video.video_name}}</a>
+                                                    <div class="button-group" v-if="isEditMode">
+                                                        <button class="edit-btn" data-toggle="modal"
+                                                            :data-target="'#updatevideo-' + video.video_id">修改</button>
+                                                        <button class="delete-btn"
+                                                            @click="deleteVideo(video.video_id)">删除</button>
+                                                    </div>
+                                                </h4>
+                                            </div>
+                                        </div>
+                                    </article>
+
+                                    <!-- Modal for editing video -->
+                                    <div :id="'updatevideo-' + video.video_id" class="modal fade" role="dialog">
+                                        <div class="modal-dialog">
+                                            <div class="modal-content row">
+                                                <div class="modal-header custom-modal-header">
+                                                    <button type="button" class="close" data-dismiss="modal">×</button>
+                                                    <h2 class="icon"><i class="fa fa-television"
+                                                            aria-hidden="true"></i>修改视频</h2>
+                                                </div>
+                                                <div class="modal-body">
+                                                    <form @submit.prevent="handleUpdateVideo(video.video_id)">
+                                                        <div class="form-group col-sm-12">
+                                                            <input type="text" class="form-control"
+                                                                v-model="update_video_form.video_name" placeholder="视频名称">
+                                                        </div>
+                                                        <div class="form-group col-sm-12">
+                                                            <input type="text" class="form-control"
+                                                                v-model="update_video_form.video_info" placeholder="视频介绍">
+                                                        </div>
+                                                        <div class="form-group col-sm-12">
+                                                            <button class="subscribe-btn pull-right"
+                                                                type="submit">确定</button>
+                                                        </div>
+                                                    </form>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div v-else>
+                                <p style="text-align: center; font-size: 20px; color: #808080;">你还没有上传视频</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 你的收藏页面 -->
+                <div class="content-page" id="favorite-page" :class="{ active: activePage === 'favorite' }">
+                    <h2>你的收藏</h2>
+                    <div class="form-container">
+                        <div class="form-group">
+                            <label>视频</label>
+                        </div>
+                        <div v-if="favoriteList.length > 0" class="video-list">
+                            <div v-for="video in favoriteList" :key="video.video_id" class="video-item">
+                                <article>
+                                    <div class="post post-medium">
+                                        <div class="thumbr">
+                                            <a class="post-thumb" :href="'video.html?id=' + video.video_id">
+                                                <span class="play-btn-border" title="Play"><i
+                                                        class="fa fa-play-circle headline-round"
+                                                        aria-hidden="true"></i></span>
+                                                <img class="img-fixed-height" :src="video.image_path"
+                                                    :alt="video.video_name">
+                                            </a>
+                                            <h4>
+                                                <a class="title"
+                                                    :href="'video.html?id=' + video.video_id">{{video.video_name}}</a>
+                                            </h4>
+                                        </div>
+                                    </div>
+                                </article>
+                            </div>
+                        </div>
+                        <div v-else>
+                            <p style="text-align: center; font-size: 20px; color: #808080;">你还没有收藏视频</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- JS -->
+    <script src="js/jquery-1.12.1.min.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+    <script src="js/lity.js"></script>
+    <script src="/node_modules/vue/dist/vue.global.js"></script>
+    <script src="node_modules/axios/dist/axios.min.js"></script>
+    <script src="./js/personal.js"></script>
+</body>
+
+</html>

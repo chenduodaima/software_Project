@@ -1,0 +1,419 @@
+/* 基础样式 */
+html, body {
+    margin: 0;
+    padding: 0;
+    min-height: 100vh;
+}
+
+#personal {
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.3), rgba(255, 255, 255, 0.3)), 
+                url('../img/backgrounds/【哲风壁纸】2024-11-05 00_20_46.png');
+    background-size: cover;  /* 改为cover以保持图片比例 */
+    background-position: center;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    min-height: 100vh;
+    width: 100%;
+    padding: 40px;
+    position: relative;
+}
+
+.personal-container {
+    display: flex;
+    max-width: 1200px;
+    margin: 0 auto;
+    gap: 20px;
+    min-height: calc(100vh - 80px);
+}
+
+/* 左侧导航栏 */
+.left-nav {
+    width: 280px;
+    background: rgba(251, 248, 241, 0.95);
+    border-radius: 8px;
+    padding: 20px 0;
+    box-shadow: 0 4px 12px rgba(146, 111, 111, 0.1);
+    height: calc(100vh - 80px);
+}
+
+.user-info {
+    text-align: center;
+    padding: 20px;
+    border-bottom: 1px solid rgba(146, 111, 111, 0.2);
+}
+
+.avatar-large {
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+    margin-bottom: 15px;
+    border: 3px solid #fff;
+    box-shadow: 0 2px 8px rgba(146, 111, 111, 0.2);
+}
+
+.username {
+    font-size: 20px;
+    color: #4a3636;
+    margin: 10px 0;
+    font-weight: 600;
+}
+
+.nav-list {
+    list-style: none;
+    padding: 0;
+    margin: 15px 0;
+}
+
+.nav-item {
+    padding: 15px 30px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    color: #5d4747;
+    font-size: 16px;
+    font-weight: 500;
+}
+
+.nav-item:hover {
+    background: rgba(146, 111, 111, 0.1);
+    color: #8b6b6b;
+}
+
+.nav-item.active {
+    background: #8b6b6b;
+    color: #fff;
+    font-weight: 600;
+}
+
+.nav-item i {
+    font-size: 18px;
+}
+
+/* 右侧内容区域 */
+.right-content {
+    flex: 1;
+    background: rgba(251, 248, 241, 0.95);
+    border-radius: 8px;
+    padding: 50px;
+    box-shadow: 0 4px 12px rgba(146, 111, 111, 0.1);
+    height: calc(100vh - 80px);
+    overflow-y: auto;
+}
+
+.content-page {
+    display: none;
+}
+
+.content-page.active {
+    display: block;
+}
+
+/* 表单样式 */
+.form-container {
+    max-width: 800px;
+    margin-top: 40px;
+}
+
+.form-group {
+    margin-bottom: 60px;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 15px;
+    color: #4a3636;
+    font-size: 16px;
+    font-weight: 500;
+}
+
+.edit-group {
+    position: relative;
+    display: flex;
+    align-items: flex-start;
+    gap: 15px;
+}
+
+.edit-group .form-control {
+    margin-bottom: 0;
+    background-color: rgba(255, 255, 255, 0.8);
+}
+
+.edit-group .form-control[readonly] {
+    cursor: default;
+    border-color: transparent;
+    box-shadow: none;
+    background-color: rgba(255, 255, 255, 0.6);
+}
+
+.form-control {
+    width: 100%;
+    padding: 8px 15px;
+    border: 1px solid #d4c5c5;
+    border-radius: 6px;
+    transition: all 0.3s ease;
+    color: #4a3636;
+    font-size: 15px;
+    margin-bottom: 30px;
+    height: 40px;
+    line-height: 24px;
+}
+
+.form-control:focus {
+    border-color: #8b6b6b;
+    outline: none;
+    box-shadow: 0 0 0 3px rgba(139, 107, 107, 0.1);
+}
+
+textarea.form-control {
+    height: 40px;
+    min-height: 40px;
+    resize: vertical;
+    padding-top: 8px;
+    padding-bottom: 8px;
+    position: relative;
+}
+
+textarea.form-control::-webkit-resizer {
+    display: none;
+}
+
+textarea.form-control::after {
+    content: '';
+    position: absolute;
+    right: 2px;
+    bottom: 2px;
+    width: 10px;
+    height: 10px;
+    background: 
+        linear-gradient(45deg, transparent 2px, #8b6b6b 2px, #8b6b6b 3px, transparent 3px),
+        linear-gradient(-45deg, transparent 2px, #8b6b6b 2px, #8b6b6b 3px, transparent 3px);
+    background-size: 6px 6px;
+    background-position: right bottom;
+    background-repeat: no-repeat;
+    pointer-events: none;
+}
+
+textarea.form-control:hover {
+    cursor: auto;
+}
+
+textarea.form-control:hover:active {
+    cursor: ns-resize;
+}
+
+.edit-btn {
+    padding: 8px 20px;
+    height: 40px;
+    background: transparent;
+    border: 1px solid #8b6b6b;
+    color: #8b6b6b;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    font-size: 14px;
+    white-space: nowrap;
+}
+
+.edit-btn:hover {
+    background: rgba(139, 107, 107, 0.1);
+}
+
+.edit-btn.active {
+    background: #8b6b6b;
+    color: white;
+    border-color: #8b6b6b;
+}
+
+.edit-btn i {
+    font-size: 14px;
+}
+
+/* 头像上传区域 */
+.avatar-upload {
+    display: flex;
+    align-items: center;
+    gap: 30px;
+    margin-bottom: 70px;
+    background: rgba(139, 107, 107, 0.05);
+    padding: 30px;
+    border-radius: 8px;
+    margin-top: -20px;
+}
+
+.avatar-upload img {
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 4px solid #fff;
+    box-shadow: 0 2px 8px rgba(146, 111, 111, 0.2);
+}
+
+.avatar-upload .btn-primary {
+    background: #8b6b6b;
+    border: none;
+    padding: 12px 25px;
+    font-weight: 500;
+    font-size: 16px;
+    border-radius: 6px;
+    transition: all 0.3s ease;
+    color: white;
+}
+
+.avatar-upload .btn-primary:hover {
+    background: #7a5e5e;
+    transform: translateY(-2px);
+}
+
+.save-btn {
+    margin-top: 40px;
+    background: #8b6b6b;
+    border: none;
+    padding: 15px 40px;
+    font-size: 16px;
+    font-weight: 500;
+    color: white;
+    border-radius: 6px;
+    transition: all 0.3s ease;
+}
+
+.save-btn:hover {
+    background: #7a5e5e;
+    transform: translateY(-2px);
+}
+
+h2 {
+    color: #4a3636;
+    margin-bottom: 40px;
+    padding-bottom: 15px;
+    border-bottom: 2px solid rgba(146, 111, 111, 0.2);
+    font-size: 26px;
+    font-weight: 600;
+}
+
+/* 响应式调整 */
+@media (max-width: 768px) {
+    .personal-container {
+        flex-direction: column;
+        height: auto;
+    }
+    
+    .left-nav {
+        width: 100%;
+        height: auto;
+    }
+    
+    .right-content {
+        width: 100%;
+        height: auto;
+        min-height: 600px;
+        padding: 30px;
+    }
+    
+    .avatar-upload {
+        flex-direction: column;
+        text-align: center;
+    }
+    
+    .form-group {
+        margin-bottom: 40px;
+    }
+}
+
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.edit-video-btn {
+    background-color: #8b6b6b;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.edit-video-btn:hover {
+    background-color: #7a5e5e;
+}
+
+.video-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px; /* 控制视频项之间的间距 */
+}
+
+.video-item {
+    flex: 0 0 calc(50% - 20px); /* 每个视频项占据50%的宽度，减去间距 */
+    box-sizing: border-box;
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+.img-fixed-height {
+    width: 100%;
+    height: auto;
+    max-height: 300px; /* 控制视频缩略图的最大高度 */
+}
+
+.title {
+    color: #333;
+    text-decoration: none;
+    font-size: 16px;
+    margin-top: 10px;
+    display: inline-block;
+}
+
+.delete-btn {
+    background-color: #ff4d4d;
+    color: white;
+    border: none;
+    padding: 5px 10px;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-left: 10px;
+    display: inline-block;
+    transition: background-color 0.3s ease;
+}
+
+.delete-btn:hover {
+    background-color: #e60000;
+}
+
+/* 新增的按钮组样式 */
+.button-group {
+    display: flex;
+    gap: 10px; /* 按钮之间的间距 */
+    margin-top: 10px; /* 按钮与标题之间的间距 */
+}
+
+.edit-btn, .delete-btn {
+    background-color: #8b6b6b;
+    color: white;
+    border: none;
+    padding: 5px 10px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.edit-btn:hover {
+    background-color: #7a5e5e;
+}
+
+.delete-btn {
+    background-color: #ff4d4d;
+}
+
+.delete-btn:hover {
+    background-color: #e60000;
+}

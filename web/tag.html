@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="OrcasThemes">
+    <title>标签</title>
+    <link rel="stylesheet" href="css/bootstrap.css">
+    <link rel="stylesheet" href="css/screen.css">
+    <link rel="stylesheet" href="css/animation.css">
+    <link rel="stylesheet" href="css/font-awesome.css">
+    <link rel="stylesheet" href="css/lity.css">
+    <link rel="stylesheet" href="css/mymain.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.3/css/font-awesome.min.css">
+    <link rel="stylesheet" href="css/video.css"
+    <link rel="stylesheet" href="css/tag.css">
+</head>
+
+<body>
+    <div id="tag" class="container-fluid standard-bg">
+        <div class="row header-top">
+            <div class="col-lg-3 col-md-6 col-sm-5 col-xs-8">
+                <a class="main-logo" href="index.html"><img src="img/main-logo.png" class="main-logo img-responsive"
+                        alt="Muvee Reviews" title="Muvee Reviews"></a>
+            </div>
+            <!-- 添加头像容器 -->
+            <div class="col-lg-9 col-md-6 col-sm-7 col-xs-4">
+                <div v-if="userinfo" class="avatar-container">
+                    <img :src="userinfo.user_head_portrait_path" class="avatar" alt="用户头像"
+                        onclick="window.location.href='personal.html'">
+                    <div class="user-info-box">
+                        <span class="user-info-text">欢迎回来，{{userinfo.username}}</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row home-mega-menu ">
+            <div class="col-md-12">
+                <nav class="navbar navbar-default">
+                    <div class="navbar-header">
+                        <button class="navbar-toggle" type="button" data-toggle="collapse"
+                            data-target=".js-navbar-collapse">
+                            <span class="sr-only">Toggle navigation</span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                        </button>
+                    </div>
+                    <div class="collapse navbar-collapse js-navbar-collapse megabg dropshd ">
+                        <ul class="nav navbar-nav">
+                            <li><a href="index.html">主页</a></li>
+                            <li><a href="search.html">搜索</a></li>
+                            <li class="active"><a href="tag.html">标签</a></li>
+                            <li><a href="personal.html">个人中心</a></li>
+                            <li><a href="login.html">登录</a></li>
+                        </ul>
+                        <div class="search-block">
+                            <form @submit.prevent="redirectToSearch">
+                                <input type="search" placeholder="Search" v-model="searchQuery">
+                            </form>
+                        </div>
+                    </div>
+                </nav>
+            </div>
+        </div>
+        <div class="col-lg-10 col-md-8">
+            <article>
+                <h2 class="icon"><i class="fa fa-tag" aria-hidden="true"></i>标签</h2>
+                <ul class="footer-tags" v-if="tags.length">
+                    <li v-for="tag in tags" :key="tag.tag_id"><a href="#">{{tag.tag_name}}</a></li>
+                </ul>
+            </article>
+        </div>
+    </div>
+    <div id="footer" class="container-fluid footer-background">
+        <div class="container">
+           <footer>
+              <div class="row copyright-bottom text-center">
+                 <div class="col-md-12 text-center">
+                    <a href="" class="footer-logo" title="Video Magazine Bootstrap HTML5 template">
+                       <img src="img/footer-logo.png" class="img-fixed-width text-center pull-left"
+                          alt="Video Magazine Bootstrap HTML5 template">
+                    </a>
+                    <div class="clearfix"></div>
+                    <p>Copyright &copy; 2017.Company name All rights reserved.<a target="_blank"
+                          href="http://sc.chinaz.com/moban/">&#x7F51;&#x9875;&#x6A21;&#x677F;</a></p>
+                 </div>
+              </div>
+           </footer>
+        </div>
+     </div>
+    <script src="/node_modules/vue/dist/vue.global.prod.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <script src="./js/tag.js"></script>
+</body>
+
+</html>
